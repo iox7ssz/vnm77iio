@@ -5,13 +5,13 @@ from pyrogram import Client, filters
 from pyrogram.types import Message
 from pyrogram.raw.functions.messages import DeleteHistory
 
-from DAXXMUSIC import userbot as us, app
-from DAXXMUSIC.core.userbot import assistants
+from AlinaXIQ import userbot as us, app
+from AlinaXIQ.core.userbot import assistants
 from config import*
 import config 
-from DAXXMUSIC.misc import SUDOERS
-from DAXXMUSIC.core.userbot import *
-from DAXXMUSIC import app
+from AlinaXIQ.misc import SUDOERS
+from AlinaXIQ.core.userbot import *
+from AlinaXIQ import app
 
 
 
