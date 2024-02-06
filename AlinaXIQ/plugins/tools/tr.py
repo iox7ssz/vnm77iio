@@ -1,6 +1,6 @@
 from pyrogram import filters
 from pyrogram.types import *
-from DAXXMUSIC import app
+from AlinaXIQ import app
 from gpytranslate import Translator
 from strings.filters import command
 
