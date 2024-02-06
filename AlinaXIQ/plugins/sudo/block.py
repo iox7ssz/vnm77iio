@@ -1,11 +1,11 @@
 from pyrogram import filters
 from pyrogram.types import Message
 
-from DAXXMUSIC import app
-from DAXXMUSIC.misc import SUDOERS
-from DAXXMUSIC.utils.database import add_gban_user, remove_gban_user
-from DAXXMUSIC.utils.decorators.language import language
-from DAXXMUSIC.utils.extraction import extract_user
+from AlinaXIQ import app
+from AlinaXIQ.misc import SUDOERS
+from AlinaXIQ.utils.database import add_gban_user, remove_gban_user
+from AlinaXIQ.utils.decorators.language import language
+from AlinaXIQ.utils.extraction import extract_user
 from config import BANNED_USERS
 
 
