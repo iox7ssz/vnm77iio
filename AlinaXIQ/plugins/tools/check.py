@@ -2,7 +2,7 @@ from pyrogram import Client, filters, types
 from pyrogram.errors import *
 import re
 import time
-from DAXXMUSIC import app
+from AlinaXIQ import app
 import config
 from config import BOT_USERNAME
 
@@ -10,7 +10,7 @@ from config import BOT_USERNAME
 PREFIX = "/"
 ANTISPAM = 5 
 BLACKLISTED = [] 
-UA = "MR DAXX"
+UA = "IQ 7amo"
 
 
 @app.on_message(filters.command("chk", prefixes=PREFIX))
