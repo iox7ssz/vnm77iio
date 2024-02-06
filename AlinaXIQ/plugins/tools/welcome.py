@@ -3,7 +3,7 @@ from PIL import ImageDraw, Image, ImageFont, ImageChops
 from pyrogram import *
 from pyrogram.types import *
 from logging import getLogger
-from DAXXMUSIC import app
+from AlinaXIQ import app
 
 
 
