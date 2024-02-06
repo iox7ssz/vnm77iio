@@ -9,8 +9,8 @@ import random
 from pyrogram import Client
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardMarkup
 from strings.filters import command
-from DAXXMUSIC import (Apple, Resso, SoundCloud, Spotify, Telegram, YouTube, app)
-from DAXXMUSIC import app
+from AlinaXIQ import (Apple, Resso, SoundCloud, Spotify, Telegram, YouTube, app)
+from AlinaXIQ import app
 from random import  choice, randint
 from asyncio import gather
 from pyrogram.errors import FloodWait
