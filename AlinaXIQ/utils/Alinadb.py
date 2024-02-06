@@ -5,7 +5,7 @@ from pyrogram import Client
 from pyrogram.types import Message
 from pyrogram.enums import ChatMemberStatus, ChatType
 
-from DAXXMUSIC import app
+from AlinaXIQ import app
 
 from config import OWNER_ID, BOT_USERNAME
 from AlinaXIQ.misc import SUDOERS
