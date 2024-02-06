@@ -1,11 +1,11 @@
 from asyncio import sleep
 from pyrogram import filters
 from pyrogram.enums import ChatType
-from DAXXMUSIC.misc import SUDOERS
+from AlinaXIQ.misc import SUDOERS
 from pyrogram.errors import MessageDeleteForbidden, RPCError
 from pyrogram.types import Message
-from DAXXMUSIC.utils.daxx_ban import admin_filter
-from DAXXMUSIC import app
+from AlinaXIQ.utils.Alina_ban import admin_filter
+from AlinaXIQ import app
 
 
 @app.on_message(filters.command("purge") & admin_filter & SUDOERS)
