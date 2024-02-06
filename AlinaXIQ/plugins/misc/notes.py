@@ -1,4 +1,4 @@
-from DAXXMUSIC import app
+from AlinaXIQ import app
 from config import BOT_USERNAME
 from pyrogram import filters
 from AlinaXIQ.utils.Alina_ban import admin_filter
