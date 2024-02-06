@@ -1,11 +1,11 @@
 from pyrogram import enums
 from pyrogram.enums import ChatType
 from pyrogram import filters, Client
-from DAXXMUSIC import app
+from AlinaXIQ import app
 from config import OWNER_ID
-from DAXXMUSIC.misc import SUDOERS
+from AlinaXIQ.misc import SUDOERS
 from pyrogram.types import Message
-from DAXXMUSIC.utils.daxx_ban import admin_filter, sudo_filter
+from AlinaXIQ.utils.Alina_ban import admin_filter, sudo_filter
 from pyrogram.types import Message, CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
 from strings.filters import command
 
