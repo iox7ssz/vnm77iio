@@ -6,19 +6,19 @@ from AlinaXIQ import app
 
 SUPPORT_CHAT = "MGIMT"
 
-@app.on_message(filters.command("wish"))
+@app.on_message(filters.command(["wish","حەز","هیوا","خۆزگە"], prefixes=["/", "!", "%", ",", "", ".", "@", "#"]))
 async def wish(_, m):
     if len(m.command) < 2:
-        await m.reply("ᴀᴅᴅ ᴡɪꜱʜ ʙᴀʙʏ🥀!")
+        await m.reply("**لەگەڵ فەرمانەکە خۆزگە یان حەزەکانت بنووسە 🥺🫶🏻**")
         return 
 
     api = requests.get("https://nekos.best/api/v2/happy").json()
     url = api["results"][0]['url']
     text = m.text.split(None, 1)[1]
     wish_count = random.randint(1, 100)
-    wish = f"✨ ʜᴇʏ! {m.from_user.first_name}! "
-    wish += f"✨ ʏᴏᴜʀ ᴡɪꜱʜ: {text} "
-    wish += f"✨ ᴘᴏꜱꜱɪʙʟᴇ ᴛᴏ: {wish_count}%"
+    wish = f"**🍓 سڵاو {m.from_user.first_name}!**\n"
+    wish += f"**🍓 حەزی تۆ: {text} **\n\n"
+    wish += f"**🍓 ڕێژەی ڕوودانی: {wish_count}% **"
     
     await app.send_animation(
         chat_id=m.chat.id,
@@ -30,9 +30,9 @@ async def wish(_, m):
             
     
 BUTTON = [[InlineKeyboardButton("نوێکارییەکانی ئەلینا 🍻", url=f"https://t.me/{SUPPORT_CHAT}")]]
-CUTIE = "https://64.media.tumblr.com/d701f53eb5681e87a957a547980371d2/tumblr_nbjmdrQyje1qa94xto1_500.gif"
+CUTIE = "https://graph.org/file/ff4ee737b9daeb83fa0ec.mp4"
 
-@app.on_message(filters.command("cute"))
+@app.on_message(filters.command(["cute","کیوت","كیوت","قشت","قشتی"], prefixes=["/", "!", "%", ",", "", ".", "@", "#"]))
 async def cute(_, message):
     if not message.reply_to_message:
         user_id = message.from_user.id
@@ -43,11 +43,11 @@ async def cute(_, message):
 
     mention = f"[{user_name}](tg://user?id={str(user_id)})"
     mm = random.randint(1, 100)
-    CUTE = f"🍑 {mention} {mm}% ᴄᴜᴛᴇ ʙᴀʙʏ🥀"
+    CUTE = f"**🍓 {mention}\nڕێژەی قشتیت {mm}% 🥺🫶🏻**"
 
-    await app.send_document(
+    await app.video(
         chat_id=message.chat.id,
-        document=CUTIE,
+        video=CUTIE,
         caption=CUTE,
         reply_markup=InlineKeyboardMarkup(BUTTON),
         reply_to_message_id=message.reply_to_message.message_id if message.reply_to_message else None,
