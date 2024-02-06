@@ -1,4 +1,4 @@
-from DAXXMUSIC import app
+from AlinaXIQ import app
 from os import environ
 from config import BOT_USERNAME
 import config
