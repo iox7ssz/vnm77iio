@@ -1,9 +1,9 @@
 from pyrogram import filters
 
-from DAXXMUSIC import app
-from DAXXMUSIC.misc import SUDOERS
-from DAXXMUSIC.utils.database import add_off, add_on
-from DAXXMUSIC.utils.decorators.language import language
+from AlinaXIQ import app
+from AlinaXIQ.misc import SUDOERS
+from AlinaXIQ.utils.database import add_off, add_on
+from AlinaXIQ.utils.decorators.language import language
 
 
 @app.on_message(filters.command(["logger"]) & SUDOERS)
