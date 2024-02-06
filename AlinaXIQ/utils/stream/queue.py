@@ -1,8 +1,8 @@
 import asyncio
 from typing import Union
 
-from DAXXMUSIC.misc import db
-from DAXXMUSIC.utils.formatters import check_duration, seconds_to_min
+from AlinaXIQ.misc import db
+from AlinaXIQ.utils.formatters import check_duration, seconds_to_min
 from config import autoclean, time_to_seconds
 
 
