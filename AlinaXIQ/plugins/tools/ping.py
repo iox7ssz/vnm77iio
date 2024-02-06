@@ -9,7 +9,6 @@ from AlinaXIQ.utils.inline import supp_markup
 from config import BANNED_USERS, PING_IMG_URL
 import aiohttp
 from io import BytesIO
-from AlinaXIQ import app
 from pyrogram import filters
 
 
