@@ -1,8 +1,8 @@
 from pyrogram import  filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from strings.filters import command
-from DAXXMUSIC.utils.daxx_font import Fonts
-from DAXXMUSIC import app
+from AlinaXIQ.utils.daxx_font import Fonts
+from AlinaXIQ import app
 
 @app.on_message(filters.command(["font", "fonts", "فۆنت"]))
 async def style_buttons(c, m, cb=False):
