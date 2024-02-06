@@ -6,12 +6,12 @@ from pyrogram.errors import FloodWait
 from pyrogram.types import CallbackQuery, InputMediaPhoto, Message
 
 import config
-from DAXXMUSIC import app
-from DAXXMUSIC.misc import db
-from DAXXMUSIC.utils import DAXXBin, get_channeplayCB, seconds_to_min
-from DAXXMUSIC.utils.database import get_cmode, is_active_chat, is_music_playing
-from DAXXMUSIC.utils.decorators.language import language, languageCB
-from DAXXMUSIC.utils.inline import queue_back_markup, queue_markup
+from AlinaXIQ import app
+from AlinaXIQ.misc import db
+from AlinaXIQ.utils import AlinaBin, get_channeplayCB, seconds_to_min
+from AlinaXIQ.utils.database import get_cmode, is_active_chat, is_music_playing
+from AlinaXIQ.utils.decorators.language import language, languageCB
+from AlinaXIQ.utils.inline import queue_back_markup, queue_markup
 from config import BANNED_USERS
 
 basic = {}
