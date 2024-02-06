@@ -3,7 +3,7 @@ from PIL import Image, ImageDraw, ImageFont
 from pyrogram import filters, Client, enums
 from pyrogram.types import *
 from typing import Union, Optional
-from DAXXMUSIC import app as Hiroko 
+from AlinaXIQ import app as Hiroko 
 from strings.filters import command
 
 # Function to get font and resize text
