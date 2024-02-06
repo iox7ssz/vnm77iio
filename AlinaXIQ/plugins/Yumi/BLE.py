@@ -1,5 +1,5 @@
 from pyrogram import Client, filters, idle
-from DAXXMUSIC import app
+from AlinaXIQ import app
 from strings.filters import command
 from pyrogram import filters
 from pyrogram import Client
