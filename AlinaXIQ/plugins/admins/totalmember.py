@@ -1,8 +1,8 @@
-from DAXXMUSIC.utils.daxx_ban import admin_filter
+from AlinaXIQ.utils.Alina_ban import admin_filter
 import os
 import csv
 from pyrogram import Client, filters
-from DAXXMUSIC import app
+from AlinaXIQ import app
 
 @app.on_message(filters.command("user") & admin_filter)
 def user_command(client, message):
