@@ -1,10 +1,10 @@
 from DAXXMUSIC import app
 from config import BOT_USERNAME
 from pyrogram import filters
-from DAXXMUSIC.utils.daxx_ban import admin_filter
-from DAXXMUSIC.mongo.notesdb import *
-from DAXXMUSIC.utils.notes_func import GetNoteMessage, exceNoteMessageSender, privateNote_and_admin_checker
-from DAXXMUSIC.utils.yumidb import user_admin
+from AlinaXIQ.utils.Alina_ban import admin_filter
+from AlinaXIQ.mongo.notesdb import *
+from AlinaXIQ.utils.notes_func import GetNoteMessage, exceNoteMessageSender, privateNote_and_admin_checker
+from AlinaXIQ.utils.Alinadb import user_admin
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup , Message , CallbackQuery
 from pyrogram.enums import ChatMemberStatus
 
