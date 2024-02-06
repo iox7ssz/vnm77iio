@@ -6,7 +6,7 @@ from pyrogram import enums
 from strings.filters import command
 from pyrogram.enums import ChatMemberStatus
 from pyrogram.errors import FloodWait
-from DAXXMUSIC import app
+from AlinaXIQ import app
 
 # ------------------------------------------------------------------------------- #
 
