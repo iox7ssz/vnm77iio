@@ -1,5 +1,5 @@
 from pyrogram import Client, filters
-from DAXXMUSIC import app
+from AlinaXIQ import app
 from config import BOT_USERNAME
 
 
