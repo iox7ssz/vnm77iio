@@ -45,7 +45,7 @@ async def cute(_, message):
     mm = random.randint(1, 100)
     CUTE = f"**🍓 {mention}\nڕێژەی قشتیت {mm}% 🥺🫶🏻**"
 
-    await app.video(
+    await app.send_file(
         chat_id=message.chat.id,
         video=CUTIE,
         caption=CUTE,
