@@ -1,10 +1,10 @@
 from AlinaXIQ import app
 from config import BOT_USERNAME
 from pyrogram import filters
-from AlinaXIQ.utils.Alina_ban import admin_filter
+from AlinaXIQ.utils.alina_ban import admin_filter
 from AlinaXIQ.mongo.notesdb import *
 from AlinaXIQ.utils.notes_func import GetNoteMessage, exceNoteMessageSender, privateNote_and_admin_checker
-from AlinaXIQ.utils.Alinadb import user_admin
+from AlinaXIQ.utils.alinadb import user_admin
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup , Message , CallbackQuery
 from pyrogram.enums import ChatMemberStatus
 
