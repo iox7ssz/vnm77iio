@@ -2,7 +2,7 @@ import os
 from pyrogram import Client
 from pyrogram.types import ChatMemberUpdated, InlineKeyboardMarkup, InlineKeyboardButton
 from pyrogram.enums import ChatMemberStatus
-from DAXXMUSIC import app
+from AlinaXIQ import app
 
 
 @app.on_chat_member_updated(filters=lambda _, response: response.new_chat_member)
