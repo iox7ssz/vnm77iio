@@ -1,8 +1,8 @@
-from DAXXMUSIC.core.bot import DAXX
-from DAXXMUSIC.core.dir import dirr
-from DAXXMUSIC.core.git import git
-from DAXXMUSIC.core.userbot import Userbot
-from DAXXMUSIC.misc import dbb, heroku
+from AlinaXIQ.core.bot import Alina
+from AlinaXIQ.core.dir import dirr
+from AlinaXIQ.core.git import git
+from AlinaXIQ.core.userbot import Userbot
+from AlinaXIQ.misc import dbb, heroku
 
 from SafoneAPI import SafoneAPI
 from .logging import LOGGER
@@ -12,7 +12,7 @@ git()
 dbb()
 heroku()
 
-app = DAXX()
+app = Alina()
 api = SafoneAPI()
 userbot = Userbot()
 
