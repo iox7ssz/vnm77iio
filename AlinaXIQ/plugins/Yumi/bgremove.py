@@ -2,7 +2,7 @@ import os
 import aiohttp
 import aiofiles
 from aiohttp import ContentTypeError
-from DAXXMUSIC import app as app
+from AlinaXIQ import app as app
 from pyrogram import filters
 
 def check_filename(filroid):
@@ -34,7 +34,7 @@ async def RemoveBG(input_file_name):
             return True, name
 
 
-@app.on_message(filters.command("rmbg"))
+@app.on_message(filters.command("rmbg","rbg"))
 async def rmbg(bot, message):
   rmbg = await message.reply("Processing...") 
   replied = message.reply_to_message
