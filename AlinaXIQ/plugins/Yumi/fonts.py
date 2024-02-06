@@ -1,7 +1,7 @@
 from pyrogram import  filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from strings.filters import command
-from AlinaXIQ.utils.daxx_font import Fonts
+from AlinaXIQ.utils.Alina_font import Fonts
 from AlinaXIQ import app
 
 @app.on_message(filters.command(["font", "fonts", "فۆنت"]))
