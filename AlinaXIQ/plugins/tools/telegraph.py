@@ -1,6 +1,6 @@
 from telegraph import upload_file
 from pyrogram import filters
-from DAXXMUSIC import app
+from AlinaXIQ import app
 from pyrogram.types import InputMediaPhoto
 from strings.filters import command
 
