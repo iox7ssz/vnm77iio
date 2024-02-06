@@ -4,7 +4,7 @@ from AlinaXIQ import app, userbot
 from AlinaXIQ.misc import SUDOERS
 from pyrogram import * 
 from pyrogram.types import *
-from AlinaXIQ.utils.Alina_ban import admin_filter
+from AlinaXIQ.utils.alina_ban import admin_filter
 
 
 
