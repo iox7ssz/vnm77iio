@@ -90,8 +90,8 @@ async def userinfo(_, message):
         if user.photo and user.photo.big_file_id:
             photo = await Hiroko.download_media(user.photo.big_file_id)
             welcome_photo = await get_userinfo_img(
-                bg_path="DAXXMUSIC/assets/userinfo.png",
-                font_path="DAXXMUSIC/assets/hiroko.ttf",
+                bg_path="AlinaXIQ/assets/userinfo.png",
+                font_path="AlinaXIQ/assets/hiroko.ttf",
                 user_id=user_id,
                 profile_path=photo,
             )
