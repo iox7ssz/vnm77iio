@@ -1,10 +1,10 @@
 import re
-from DAXXMUSIC import app
+from AlinaXIQ import app
 from config import BOT_USERNAME
-from DAXXMUSIC.utils.daxx_ban import admin_filter
-from DAXXMUSIC.mongo.filtersdb import *
-from DAXXMUSIC.utils.filters_func import GetFIlterMessage, get_text_reason, SendFilterMessage
-from DAXXMUSIC.utils.yumidb import user_admin
+from AlinaXIQ.utils.Alina_ban import admin_filter
+from AlinaXIQ.mongo.filtersdb import *
+from AlinaXIQ.utils.filters_func import GetFIlterMessage, get_text_reason, SendFilterMessage
+from AlinaXIQ.utils.Alinadb import user_admin
 from pyrogram import filters
 from strings.filters import command
 from pyrogram.enums import ChatMemberStatus
