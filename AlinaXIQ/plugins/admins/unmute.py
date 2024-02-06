@@ -2,7 +2,7 @@ from AlinaXIQ import app
 from pyrogram import filters,enums
 from AlinaXIQ.misc import SUDOERS
 from pyrogram.types import ChatPermissions 
-from AlinaXIQ.utils.Alina_ban import admin_filter
+from AlinaXIQ.utils.alina_ban import admin_filter
 
 @app.on_message(filters.command(["unmuteall","لادانی میوتکراوەکان"], prefixes=["/", "!", "%", ",", "", ".", "@", "#"]) & admin_filter)
 async def unmute_all(_,msg):
