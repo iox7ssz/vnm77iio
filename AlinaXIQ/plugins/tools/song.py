@@ -87,7 +87,7 @@ async def ytmusic(client, message: Message):
         return
     c_time = time.time()
     file_stark = f"{ytdl_data['id']}.mp4"
-    capy = f"**ناونیشان : [{thum}]({mo})\n\nکەناڵ : {thums}\nگەڕان : {urlissed}\nلەلایەن : {chutiya}**"
+    capy = f"**⇜ @MGIMT [{duration}](t.me/EHS4SS)**"
     await client.send_video(
         message.chat.id,
         video=open(file_stark, "rb"),
@@ -152,7 +152,7 @@ def download_song(_, message):
             thumb=thumb_name,
             title=title,
             duration=dur,
-            caption=f"**{title}\n\nلەلایەن ➪ {message.from_user.mention}\nبینەر ➪ {views}\nکەناڵ ➪ {channel_name}",
+            caption=f"**⇜ @MGIMT [{duration}](t.me/EHS4SS)**",
             reply_markup = InlineKeyboardMarkup(
             [
                 [
