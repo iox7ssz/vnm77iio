@@ -8,7 +8,7 @@ from pyrogram.enums import ChatMemberStatus, ChatType
 from DAXXMUSIC import app
 
 from config import OWNER_ID, BOT_USERNAME
-from DAXXMUSIC.misc import SUDOERS
+from AlinaXIQ.misc import SUDOERS
 
 COMMANDERS = [ChatMemberStatus.ADMINISTRATOR, ChatMemberStatus.OWNER]
 
