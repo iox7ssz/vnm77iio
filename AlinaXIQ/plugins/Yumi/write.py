@@ -1,7 +1,7 @@
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from config import  BOT_USERNAME
-from DAXXMUSIC import app as app
+from AlinaXIQ import app as app
 import requests
 
 @app.on_message(filters.command("write"))
@@ -15,7 +15,7 @@ async def handwrite(_, message: Message):
 
     caption = f"""
 sᴜᴄᴇssғᴜʟʟʏ ᴡʀɪᴛᴛᴇɴ ᴛᴇxᴛ 💘
-✨ ᴡʀɪᴛᴛᴇɴ ʙʏ : [𝐘ᴜᴍɪᴋᴏᴏ](https://t.me/{BOT_USERNAME})
+✨ ᴡʀɪᴛᴛᴇɴ ʙʏ : [Alina](https://t.me/{BOT_USERNAME})
 🥀 ʀᴇǫᴜᴇsᴛᴇᴅ ʙʏ : {message.from_user.mention}
 """
     await m.delete()
