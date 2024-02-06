@@ -1,6 +1,6 @@
 """MIT License
 
-Copyright (c) [Year] Team DAXX
+Copyright (c) [Year] Team Alina
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -24,7 +24,7 @@ SOFTWARE.
 
 from pyrogram import Client, filters
 from faker import Faker
-from DAXXMUSIC import app
+from AlinaXIQ import app
 
 # Create a Faker instance
 fake = Faker()
