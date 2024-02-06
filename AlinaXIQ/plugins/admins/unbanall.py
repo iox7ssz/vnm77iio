@@ -1,7 +1,7 @@
 from AlinaXIQ import app
 from pyrogram import filters, enums
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-from AlinaXIQ.utils.Alina_ban import admin_filter
+from AlinaXIQ.utils.alina_ban import admin_filter
 
 BOT_ID = "6357186923"
 
