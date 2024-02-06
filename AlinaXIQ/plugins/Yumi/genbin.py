@@ -1,6 +1,6 @@
 """MIT License
 
-Copyright (c) [Year] Team DAXX
+Copyright (c) [Year] AlinaXIQ
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -28,7 +28,7 @@ SOFTWARE.
 
 from pyrogram import Client, filters
 import random
-from DAXXMUSIC import app
+from AlinaXIQ import app
 
 # Constants
 VALID_PREFIXES = [4, 5, 6,3]  # VISA starts with 4, MasterCard with 5, Discover with 6
