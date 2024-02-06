@@ -7,13 +7,13 @@ from pyrogram.errors import (
     UserAlreadyParticipant,
     UserNotParticipant,
 )
-from DAXXMUSIC.utils.database import get_assistant
+from AlinaXIQ.utils.database import get_assistant
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
-from DAXXMUSIC import YouTube, app
-from DAXXMUSIC.core.call import DAXX
-from DAXXMUSIC.misc import SUDOERS, db
-from DAXXMUSIC.utils.database import (
+from AlinaXIQ import YouTube, app
+from AlinaXIQ.core.call import Alina
+from AlinaXIQ.misc import SUDOERS, db
+from AlinaXIQ.utils.database import (
     get_active_chats,
     get_lang,
     get_upvote_count,
@@ -27,12 +27,12 @@ from DAXXMUSIC.utils.database import (
     is_muted,
     set_loop,
 )
-from DAXXMUSIC.utils.decorators.language import languageCB
-from DAXXMUSIC.utils.formatters import seconds_to_min
-from DAXXMUSIC.utils.inline import close_markup, stream_markup, stream_markup_timer
-from DAXXMUSIC.utils.inline.play import panel_markup_1, panel_markup_2, panel_markup_3
-from DAXXMUSIC.utils.stream.autoclear import auto_clean
-from DAXXMUSIC.utils.thumbnails import get_thumb
+from AlinaXIQ.utils.decorators.language import languageCB
+from AlinaXIQ.utils.formatters import seconds_to_min
+from AlinaXIQ.utils.inline import close_markup, stream_markup, stream_markup_timer
+from AlinaXIQ.utils.inline.play import panel_markup_1, panel_markup_2, panel_markup_3
+from AlinaXIQ.utils.stream.autoclear import auto_clean
+from AlinaXIQ.utils.thumbnails import get_thumb
 from config import BANNED_USERS, SOUNCLOUD_IMG_URL, STREAM_IMG_URL, TELEGRAM_AUDIO_URL, TELEGRAM_VIDEO_URL, adminlist, confirmer, votemode
 from strings import get_string
 from config import lyrical
@@ -220,7 +220,7 @@ async def del_back_playlist(client, CallbackQuery, _):
             return await CallbackQuery.answer(_["admin_1"], show_alert=True)
         await CallbackQuery.answer()
         await music_off(chat_id)
-        await DAXX.pause_stream(chat_id)
+        await Alina.pause_stream(chat_id)
         buttons = [
         [
             InlineKeyboardButton(text="𝖱𝖾𝗌𝗎𝗆𝖾", callback_data=f"ADMIN Resume|{chat_id}"),
@@ -235,7 +235,7 @@ async def del_back_playlist(client, CallbackQuery, _):
             return await CallbackQuery.answer(_["admin_3"], show_alert=True)
         await CallbackQuery.answer()
         await music_on(chat_id)
-        await DAXX.resume_stream(chat_id)
+        await Alina.resume_stream(chat_id)
         buttons_resume = [
         [
             
@@ -259,7 +259,7 @@ async def del_back_playlist(client, CallbackQuery, _):
         )
     elif command == "Stop" or command == "End":
         await CallbackQuery.answer()
-        await DAXX.stop_stream(chat_id)
+        await Alina.stop_stream(chat_id)
         await set_loop(chat_id, 0)
         await CallbackQuery.message.reply_text(
             _["admin_5"].format(mention), reply_markup=close_markup(_)
@@ -272,7 +272,7 @@ async def del_back_playlist(client, CallbackQuery, _):
             )
         await CallbackQuery.answer()
         await mute_on(chat_id)
-        await DAXX.mute_stream(chat_id)
+        await Alina.mute_stream(chat_id)
         await CallbackQuery.message.reply_text(
             _["admin_46"].format(mention)
         )
@@ -283,7 +283,7 @@ async def del_back_playlist(client, CallbackQuery, _):
             )
         await CallbackQuery.answer()
         await mute_off(chat_id)
-        await DAXX.unmute_stream(chat_id)
+        await Alina.unmute_stream(chat_id)
         await CallbackQuery.message.reply_text(
             _["admin_48"].format(mention)
         )
@@ -337,7 +337,7 @@ async def del_back_playlist(client, CallbackQuery, _):
                         reply_markup=close_markup(_),
                     )
                     try:
-                        return await DAXX.stop_stream(chat_id)
+                        return await Alina.stop_stream(chat_id)
                     except:
                         return
             except:
@@ -351,7 +351,7 @@ async def del_back_playlist(client, CallbackQuery, _):
                         ),
                         reply_markup=close_markup(_),
                     )
-                    return await DAXX.stop_stream(chat_id)
+                    return await Alina.stop_stream(chat_id)
                 except:
                     return
         else:
@@ -383,7 +383,7 @@ async def del_back_playlist(client, CallbackQuery, _):
             except:
                 image = None
             try:
-                await DAXX.skip_stream(chat_id, link, video=status, image=image)
+                await Alina.skip_stream(chat_id, link, video=status, image=image)
             except:
                 return await CallbackQuery.message.reply_text(_["call_6"])
             button = stream_markup(_, chat_id)
@@ -419,7 +419,7 @@ async def del_back_playlist(client, CallbackQuery, _):
             except:
                 image = None
             try:
-                await DAXX.skip_stream(chat_id, file_path, video=status, image=image)
+                await Alina.skip_stream(chat_id, file_path, video=status, image=image)
             except:
                 return await mystic.edit_text(_["call_6"])
             button = stream_markup(_, chat_id)
@@ -440,7 +440,7 @@ async def del_back_playlist(client, CallbackQuery, _):
             await mystic.delete()
         elif "index_" in queued:
             try:
-                await DAXX.skip_stream(chat_id, videoid, video=status)
+                await Alina.skip_stream(chat_id, videoid, video=status)
             except:
                 return await CallbackQuery.message.reply_text(_["call_6"])
             button = stream_markup(_, chat_id)
@@ -463,7 +463,7 @@ async def del_back_playlist(client, CallbackQuery, _):
                 except:
                     image = None
             try:
-                await DAXX.skip_stream(chat_id, queued, video=status, image=image)
+                await Alina.skip_stream(chat_id, queued, video=status, image=image)
             except:
                 return await CallbackQuery.message.reply_text(_["call_6"])
             if videoid == "telegram":
@@ -559,7 +559,7 @@ async def del_back_playlist(client, CallbackQuery, _):
             if n == 0:
                 return await mystic.edit_text(_["admin_22"])
         try:
-            await DAXX.seek_stream(
+            await Alina.seek_stream(
                 chat_id,
                 file_path,
                 seconds_to_min(to_seek),
