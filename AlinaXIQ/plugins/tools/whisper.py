@@ -1,7 +1,7 @@
 from pyrogram import Client, filters, idle
 from pyrogram.types import InlineQueryResultPhoto, InlineKeyboardMarkup, InlineKeyboardButton, InlineQueryResultArticle, InputTextMessageContent
 from pyrogram import enums
-from DAXXMUSIC import app as app
+from AlinaXIQ import app as app
 
 ######################
 LOG = -1001834002030 #
