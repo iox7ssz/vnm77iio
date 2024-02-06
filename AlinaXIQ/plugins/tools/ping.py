@@ -1,15 +1,15 @@
 from datetime import datetime
 from pyrogram import filters
 from pyrogram.types import Message
-from DAXXMUSIC import app
-from DAXXMUSIC.core.call import DAXX
-from DAXXMUSIC.utils import bot_sys_stats
-from DAXXMUSIC.utils.decorators.language import language
-from DAXXMUSIC.utils.inline import supp_markup
+from AlinaXIQ import app
+from AlinaXIQ.core.call import Alina
+from AlinaXIQ.utils import bot_sys_stats
+from AlinaXIQ.utils.decorators.language import language
+from AlinaXIQ.utils.inline import supp_markup
 from config import BANNED_USERS, PING_IMG_URL
 import aiohttp
 from io import BytesIO
-from DAXXMUSIC import app
+from AlinaXIQ import app
 from pyrogram import filters
 
 
