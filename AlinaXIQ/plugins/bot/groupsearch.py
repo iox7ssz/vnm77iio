@@ -8,7 +8,7 @@ from AlinaXIQ import app
 
 @app.on_message(filters.command("tg"))
 async def search_command(_, message):
-    msg = await message.reply("Searching...")
+    msg = await message.reply("**گەڕان لە تێلەگرام ..**")
     async with aiohttp.ClientSession() as session:
         start = 1
         async with session.get(
@@ -19,7 +19,7 @@ async def search_command(_, message):
             result = ""
 
             if not response.get("items"):
-                return await msg.edit("No results found!")
+                return await msg.edit("هیچ شتێکی زیاتر نەدۆزراوە!")
 
             for item in response["items"]:
                 title = item["title"]
@@ -36,7 +36,7 @@ async def search_command(_, message):
                 result += f"{title}\n{link}\n\n"
 
             prev_and_next_btns = [
-                [InlineKeyboardButton("▶️Next▶️", callback_data=f"next {start+10} {message.text.split()[1]}")]
+                [InlineKeyboardButton("دواتر", callback_data=f"next {start+10} {message.text.split()[1]}")]
             ]
             await msg.edit(result, reply_markup=InlineKeyboardMarkup(prev_and_next_btns), disable_web_page_preview=True)
             await session.close()
@@ -52,7 +52,7 @@ async def prev_callback(_, callback_query):
         ) as r:
             response = await r.json()
             if response.get("error"):
-                return await callback_query.answer("No more results!")
+                return await callback_query.answer("هیچ شتێکی زیاتر نەدۆزراوە!")
 
             result = ""
             for item in response["items"]:
@@ -70,8 +70,8 @@ async def prev_callback(_, callback_query):
                 result += f"{title}\n{link}\n\n"
 
             prev_and_next_btns = [
-                [InlineKeyboardButton("◀️Prev◀️", callback_data=f"prev {start-10} {(callback_query.data.split()[2]).decode('utf-8')}"),
-                 InlineKeyboardButton("▶️Next▶️", callback_data=f"next {start+10} {(callback_query.data.split()[2]).decode('utf-8')}")]
+                [InlineKeyboardButton("پێشتر", callback_data=f"prev {start-10} {(callback_query.data.split()[2]).decode('utf-8')}"),
+                 InlineKeyboardButton("دواتر", callback_data=f"next {start+10} {(callback_query.data.split()[2]).decode('utf-8')}")]
             ]
             await callback_query.edit_message_text(result, reply_markup=InlineKeyboardMarkup(prev_and_next_btns), disable_web_page_preview=True)
             await session.close()
@@ -87,7 +87,7 @@ async def next_callback(_, callback_query):
         ) as r:
             response = await r.json()
             if response["searchInformation"]["totalResults"] == "0":
-                return await callback_query.answer("No more results!")
+                return await callback_query.answer("هیچ شتێکی زیاتر نەدۆزراوە!")
 
             result = ""
             for item in response["items"]:
@@ -105,8 +105,8 @@ async def next_callback(_, callback_query):
                 result += f"{title}\n{link}\n\n"
 
             prev_and_next_btns = [
-                [InlineKeyboardButton("◀️Prev◀️", callback_data=f"prev {start-10} {(callback_query.data.split()[2]).decode('utf-8')}"),
-                 InlineKeyboardButton("▶️Next▶️", callback_data=f"next {start+10} {(callback_query.data.split()[2]).decode('utf-8')}")]
+                [InlineKeyboardButton("پێشتر", callback_data=f"prev {start-10} {(callback_query.data.split()[2]).decode('utf-8')}"),
+                 InlineKeyboardButton("دواتر", callback_data=f"next {start+10} {(callback_query.data.split()[2]).decode('utf-8')}")]
             ]
             await callback_query.edit_message_text(result, reply_markup=InlineKeyboardMarkup(prev_and_next_btns), disable_web_page_preview=True)
             await session.close()
