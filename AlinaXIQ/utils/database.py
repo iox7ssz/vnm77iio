@@ -1,8 +1,8 @@
 import random
 from typing import Dict, List, Union
 
-from DAXXMUSIC import userbot
-from DAXXMUSIC.core.mongo import mongodb
+from AlinaXIQ import userbot
+from AlinaXIQ.core.mongo import mongodb
 
 authdb = mongodb.adminauth
 authuserdb = mongodb.authuser
