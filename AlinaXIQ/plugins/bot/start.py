@@ -6,12 +6,12 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from youtubesearchpython.__future__ import VideosSearch
 
 import config
-from DAXXMUSIC import app
-from DAXXMUSIC.misc import _boot_
-from DAXXMUSIC.plugins.sudo.sudoers import sudoers_list
-from DAXXMUSIC.utils.database import get_served_chats, get_served_users, get_sudoers
-from DAXXMUSIC.utils import bot_sys_stats
-from DAXXMUSIC.utils.database import (
+from AlinaXIQ import app
+from AlinaXIQ.misc import _boot_
+from AlinaXIQ.plugins.sudo.sudoers import sudoers_list
+from AlinaXIQ.utils.database import get_served_chats, get_served_users, get_sudoers
+from AlinaXIQ.utils import bot_sys_stats
+from AlinaXIQ.utils.database import (
     add_served_chat,
     add_served_user,
     blacklisted_chats,
@@ -19,9 +19,9 @@ from DAXXMUSIC.utils.database import (
     is_banned_user,
     is_on_off,
 )
-from DAXXMUSIC.utils.decorators.language import LanguageStart
-from DAXXMUSIC.utils.formatters import get_readable_time
-from DAXXMUSIC.utils.inline import help_pannel, private_panel, start_panel
+from AlinaXIQ.utils.decorators.language import LanguageStart
+from AlinaXIQ.utils.formatters import get_readable_time
+from AlinaXIQ.utils.inline import help_pannel, private_panel, start_panel
 from config import BANNED_USERS
 from strings import get_string
 
