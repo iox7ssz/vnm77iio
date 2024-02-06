@@ -1,7 +1,7 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message
 from strings.filters import command
-from DAXXMUSIC import app
+from AlinaXIQ import app
 
 @app.on_message(command(["groupinfo","زانیاری"]))
 async def get_group_status(_, message: Message):
