@@ -1,6 +1,6 @@
 import requests
 import json
-from DAXXMUSIC import app
+from AlinaXIQ import app
 from pyrogram import Client
 from pyrogram import filters
 from pyrogram.types import Message
