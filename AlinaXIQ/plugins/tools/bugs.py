@@ -3,7 +3,7 @@ from pyrogram import filters
 from strings.filters import command
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message, CallbackQuery
 from config import OWNER_ID as owner_id
-from DAXXMUSIC import app
+from AlinaXIQ import app
 
 
 
