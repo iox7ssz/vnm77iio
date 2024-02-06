@@ -1,4 +1,4 @@
-from AlinaXIQ.utils.Alina_ban import admin_filter
+from AlinaXIQ.utils.alina_ban import admin_filter
 import os
 import csv
 from pyrogram import Client, filters
