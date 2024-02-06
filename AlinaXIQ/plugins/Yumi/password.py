@@ -1,7 +1,7 @@
 import random, os
 from pyrogram import Client, filters, enums 
 from strings.filters import command
-from DAXXMUSIC import app
+from AlinaXIQ import app
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 
