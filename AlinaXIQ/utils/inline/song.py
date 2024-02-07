@@ -1,5 +1,5 @@
 from pyrogram.types import InlineKeyboardButton
-from config import SUPPORT_CHANNEL
+import config 
 
 def song_markup(_, vidid):
     buttons = [
