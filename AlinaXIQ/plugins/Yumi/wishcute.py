@@ -30,7 +30,7 @@ async def wish(_, m):
             
     
 BUTTON = [[InlineKeyboardButton("نوێکارییەکانی ئەلینا 🍻", url=f"https://t.me/{SUPPORT_CHAT}")]]
-CUTIE = "https://graph.org/file/ff4ee737b9daeb83fa0ec.mp4"
+CUTIE = "https://64.media.tumblr.com/d701f53eb5681e87a957a547980371d2/tumblr_nbjmdrQyje1qa94xto1_500.gif"
 
 @app.on_message(filters.command(["cute","کیوت","كیوت","قشت","قشتی"], prefixes=["/", "!", "%", ",", "", ".", "@", "#"]))
 async def cute(_, message):
@@ -45,9 +45,9 @@ async def cute(_, message):
     mm = random.randint(1, 100)
     CUTE = f"**🍓 {mention}\nڕێژەی قشتیت {mm}% 🥺🫶🏻**"
 
-    await app.send_file(
+    await app.send_document(
         chat_id=message.chat.id,
-        video=CUTIE,
+        document=CUTIE,
         caption=CUTE,
         reply_markup=InlineKeyboardMarkup(BUTTON),
         reply_to_message_id=message.reply_to_message.message_id if message.reply_to_message else None,
