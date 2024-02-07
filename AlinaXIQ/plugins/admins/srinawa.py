@@ -1,8 +1,8 @@
 from pyrogram import Client, filters
 from AlinaXIQ import app
+from AlinaXIQ.utils.alina_ban import admin_filter
 
-
-@app.on_message(filters.regex("^سڕینەوە [0-9]+$") & filters.group)
+@app.on_message(filters.regex("^سڕینەوە [0-9]+$") & admin_filter & filters.group)
 async def del_message(c, msg):
     textt = msg.text
     num = int(textt.split(" ")[1])
