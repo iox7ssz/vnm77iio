@@ -55,10 +55,6 @@ async def markup_panel(client, CallbackQuery: CallbackQuery, _):
         )
     except:
         return
-    if chat_id not in wrong:
-        wrong[chat_id] = {}
-    wrong[chat_id][CallbackQuery.message.message_id] = False
-
 
 @app.on_callback_query(filters.regex("MainMarkup") & ~BANNED_USERS)
 @languageCB
@@ -107,6 +103,7 @@ async def del_back_playlist(client, CallbackQuery, _):
     except:
         return
 
+
 @app.on_callback_query(filters.regex("unban_assistant"))
 async def unban_assistant(_, callback: CallbackQuery):
     chat_id = callback.message.chat.id
@@ -117,7 +114,6 @@ async def unban_assistant(_, callback: CallbackQuery):
         await callback.answer("⇜ بە سەرکەوتوویی باندی ئەکاونتی یاریدەدەر لادرا♥\n\n⇜ ئێستا دەتوانی گۆرانی لێ بدەیت🎻\n\n⇜ لێدانی گۆرانی : /play + ناوی گۆرانی ⎋", show_alert=True)
     except Exception as e:
         await callback.answer(f"⇜ شکستی هێنا لە لادانی باندی ئەکاونتی یاریدەدەر ڕۆڵم نییە\n\n⇜ ڕۆڵم پێبدە بۆ لادانی باندی ئەکاونتی یاریدەدەر ⎋", show_alert=True)
-
 
 checker = {}
 upvoters = {}
@@ -578,7 +574,7 @@ async def del_back_playlist(client, CallbackQuery, _):
         )
 
 async def markup_timer():
-    while not await asyncio.sleep(807):
+    while not await asyncio.sleep(7):
         active_chats = await get_active_chats()
         for chat_id in active_chats:
             try:
