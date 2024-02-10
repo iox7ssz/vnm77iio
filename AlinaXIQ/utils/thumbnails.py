@@ -99,7 +99,7 @@ async def get_thumb(videoid):
                 f = await aiofiles.open(f"cache/thumb{videoid}.png", mode="wb")
                 await f.write(await resp.read())
                 await f.close()
-
+    alina = Image.open(f"https://telegra.ph/file/2c6f305ec3b87b0ae8865.jpg")
     youtube = Image.open(f"cache/thumb{videoid}.png")
     image1 = changeImageSize(1280, 720, youtube)
     image2 = image1.convert("RGBA")
@@ -107,12 +107,12 @@ async def get_thumb(videoid):
     enhancer = ImageEnhance.Brightness(background)
     background = enhancer.enhance(0.6)
     draw = ImageDraw.Draw(background)
-    arial = ImageFont.truetype("AlinaXIQ/assets/assets/CreatoDisplay-Medium.ttf", 30)
-    font = ImageFont.truetype("AlinaXIQ/assets/assets/CreatoDisplay-Medium.ttf", 30)
-    title_font = ImageFont.truetype("AlinaXIQ/assets/assets/CreatoDisplay-Medium.ttf", 45)
+    arial = ImageFont.truetype("AlinaXIQ/assets/assets/font2.ttf", 30)
+    font = ImageFont.truetype("AlinaXIQ/assets/assets/font2.ttf", 30)
+    title_font = ImageFont.truetype("AlinaXIQ/assets/assets/font2.ttf", 45)
 
 
-    circle_thumbnail = crop_center_circle(youtube, 400, 20)
+    circle_thumbnail = crop_center_circle(alina, 400, 20)
     circle_thumbnail = circle_thumbnail.resize((400, 400))
     circle_position = (120, 160)
     background.paste(circle_thumbnail, circle_position, circle_thumbnail)
