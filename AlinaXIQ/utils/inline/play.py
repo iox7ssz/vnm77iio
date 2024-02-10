@@ -279,8 +279,8 @@ def panel_markup_1(_, videoid, chat_id):
     buttons = [
         [
             InlineKeyboardButton(
-                text=_["S_B_3"],
-                url=f"https://t.me/{app.username}?startgroup=true",
+                text= "✚ ᴀᴅᴅ ᴘʟᴀʏʟɪsᴛ ✚",
+                callback_data=f"add_playlist {videoid}",
             ),
         ],
         [
