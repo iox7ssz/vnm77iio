@@ -546,7 +546,7 @@ async def play_playlists_command(client, CallbackQuery, _):
         )
     except:
         return
-    user_name = CallbackQuery.from_user.mention
+    user_mention = CallbackQuery.from_user.mention
     await CallbackQuery.message.delete()
     try:
         await CallbackQuery.answer()
