@@ -3,7 +3,6 @@ bard
 SpeechRecognition
 pornhub-api==0.2.0
 aiohttp 
-asyncio 
 beautifulsoup4
 daxxhub
 deepai
