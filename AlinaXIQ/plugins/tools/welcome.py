@@ -169,9 +169,9 @@ async def greet_new_member(_, member: ChatMemberUpdated):
 **❅────✦ ᴡᴇʟᴄᴏᴍᴇ ✦────❅
 
 ▰▰▰▰▰▰▰▰▰▰▰▰▰
-➻ ناو » {user.mention}
-➻ ئایدی » `{user.id}`
-➻ یوزەر » @{user.username}
+➻ ناو » {user.mention} **
+**➻ ئایدی »** `{user.id}`
+**➻ یوزەر » @{user.username}
 ➻ ژمارەی ئەندام » {count}
 ▰▰▰▰▰▰▰▰▰▰▰▰▰
 
