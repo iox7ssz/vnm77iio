@@ -99,7 +99,7 @@ def welcomepic(pic, user, chatname, id, uname, brightness_factor=1.3):
     return f"downloads/welcome#{id}.png"
 
 
-@app.on_message(filters.command("welcome") & ~filters.private)
+@app.on_message(filters.command(["welcome", "wel"]) & ~filters.private)
 async def auto_state(_, message):
     usage = "**بەکارهێنان:**\n⦿/wel [on|off]\n"
     if len(message.command) == 1:
