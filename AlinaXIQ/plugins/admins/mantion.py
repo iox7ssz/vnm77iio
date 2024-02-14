@@ -63,5 +63,5 @@ async def cancelcmd(_, message):
         return await message.reply_text("**تاگ بە سەرکەوتوویی وەستا**")
 
     else:
-        await message.reply_text("**ɴᴏ ᴘʀᴏᴄᴇss ᴏɴɢᴏɪɴɢ!**")
+        await message.reply_text("**پڕۆسەی تاگکردن بوونی نییە**")
         return       
