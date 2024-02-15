@@ -1,6 +1,6 @@
 from pyrogram import filters
 from pyrogram.types import Message
-
+from strings.filters import command
 from AlinaXIQ import app
 from AlinaXIQ.misc import SUDOERS
 from AlinaXIQ.utils.database import blacklist_chat, blacklisted_chats, whitelist_chat
@@ -8,7 +8,7 @@ from AlinaXIQ.utils.decorators.language import language
 from config import BANNED_USERS
 
 
-@app.on_message(filters.command(["blchat", "blacklistchat","باندکردنی گرووپ"], prefixes=["/", "!", "%", ",", "", ".", "@", "#"]) & SUDOERS)
+@app.on_message(command(["/blchat", "/blacklistchat","باندکردنی گرووپ"]) & SUDOERS)
 @language
 async def blacklist_chat_func(client, message: Message, _):
     if len(message.command) != 2:
@@ -28,7 +28,7 @@ async def blacklist_chat_func(client, message: Message, _):
 
 
 @app.on_message(
-    filters.command(["whitelistchat", "unblacklistchat", "unblchat", "لادانی گرووپ"], prefixes=["/", "!", "%", ",", "", ".", "@", "#"]) & SUDOERS)
+    filters.command(["/whitelistchat", "/unblacklistchat", "/unblchat", "لادانی گرووپ"]) & SUDOERS)
 @language
 async def white_funciton(client, message: Message, _):
     if len(message.command) != 2:
