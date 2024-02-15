@@ -27,8 +27,7 @@ async def blacklist_chat_func(client, message: Message, _):
         pass
 
 
-@app.on_message(
-    filters.command(["/whitelistchat", "/unblacklistchat", "/unblchat", "لادانی گرووپ"]) & SUDOERS)
+@app.on_message(command(["/whitelistchat", "/unblacklistchat", "/unblchat", "لادانی گرووپ"]) & SUDOERS)
 @language
 async def white_funciton(client, message: Message, _):
     if len(message.command) != 2:
@@ -42,7 +41,7 @@ async def white_funciton(client, message: Message, _):
     await message.reply_text(_["black_9"])
 
 
-@app.on_message(filters.command(["blchats", "blacklistedchats", "گرووپەکان"], prefixes=["/", "!", "%", ",", "", ".", "@", "#"]) & SUDOERS)
+@app.on_message(command(["/blchats", "/blacklistedchats", "گرووپەکان"]) & SUDOERS)
 @language
 async def all_chats(client, message: Message, _):
     text = _["black_7"]
