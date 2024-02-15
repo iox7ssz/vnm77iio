@@ -1,6 +1,7 @@
 from pyrogram import filters
 from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from pyrogram.types import Message
+from strings.filters import command
 from strings import get_string, helpers
 from AlinaXIQ import app
 from pyrogram.types import InputMediaVideo
@@ -12,7 +13,7 @@ from AlinaXIQ.utils.inline import close_markup
 from config import BANNED_USERS, OWNER_ID, BAND
 
 
-@app.on_message(filters.command(["addsudo", "زیادکردنی گەشەپێدەر"],prefixes=["/", "!", "%", ",", "", ".", "@", "#"]) & filters.user(OWNER_ID))
+@app.on_message(command(["addsudo", "زیادکردنی گەشەپێدەر"]) & filters.user(OWNER_ID))
 @language
 async def useradd(client, message: Message, _):
     if not message.reply_to_message:
@@ -29,7 +30,7 @@ async def useradd(client, message: Message, _):
         await message.reply_text(_["sudo_8"])
 
 
-@app.on_message(filters.command(["delsudo", "rmsudo", "لادانی گەشەپێدەر"],prefixes=["/", "!", "%", ",", "", ".", "@", "#"]) & filters.user(OWNER_ID))
+@app.on_message(command(["/delsudo", "/rmsudo", "لادانی گەشەپێدەر"]) & filters.user(OWNER_ID))
 @language
 async def userdel(client, message: Message, _):
     if not message.reply_to_message:
@@ -46,7 +47,7 @@ async def userdel(client, message: Message, _):
         await message.reply_text(_["sudo_8"])
 
 
-@app.on_message(filters.command(["sudolist", "listsudo", "sudoers", "گەشەپێدەران", "گەشەپێدەرەکان"],prefixes=["/", "!", "%", ",", "", ".", "@", "#"]) & ~BANNED_USERS)
+@app.on_message(command(["/sudolist", "/listsudo", "/sudoers", "گەشەپێدەران", "گەشەپێدەرەکان"]) & ~BANNED_USERS)
 async def sudoers_list(client, message: Message):
     keyboard = [[InlineKeyboardButton("๏ گەشەپێدەران ๏", callback_data="check_sudo_list")]]
     reply_markups = InlineKeyboardMarkup(keyboard)
