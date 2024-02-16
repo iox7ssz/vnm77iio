@@ -126,5 +126,5 @@ AUTO_GCAST = $auto_gcast
 OWNER_ID = $ownid""" > .env
 clear
 
-pprint "\n\n\nThanks for using VIPMUSIC installer, your vars have been saved successfully ! \nIf you wanna add more variables add them in your env by : vi .env"
+pprint "\n\n\nThanks for using AlinaXIQ installer, your vars have been saved successfully ! \nIf you wanna add more variables add them in your env by : vi .env"
 pprint "\n\nNow you can start the bot by : bash start\n\n"
