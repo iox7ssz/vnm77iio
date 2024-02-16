@@ -1,41 +1,45 @@
-import asyncio
 import random
-
-from pyrogram import Client, filters
-from pyrogram.types import Message
-from pyrogram.raw.functions.messages import DeleteHistory
-
-from AlinaXIQ import userbot as us, app
-from AlinaXIQ.core.userbot import assistants
-from config import*
-import config 
-from AlinaXIQ.misc import SUDOERS
-from AlinaXIQ.core.userbot import *
+from pyrogram import filters
 from AlinaXIQ import app
+from AlinaXIQ import *
+from ... import *
+import config
+
+from ...logging import LOGGER
+
+from AlinaXIQ import app, userbot
+from AlinaXIQ.core.userbot import *
+
+import asyncio
+
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from config import OWNER_ID
+
+import asyncio
+from pyrogram import Client, filters
+from pyrogram.errors import FloodWait
+from dotenv import load_dotenv
+from AlinaXIQ.core.userbot import Userbot
+from datetime import datetime
+
+# Assuming Userbot is defined elsewhere
+userbot = Userbot()
 
 
-
-
-
-BOT_LIST = ["IQJOBOT", "IQMCBOT"]
-
-
-
-
-
+BOT_LIST = ["IQJOBOT", "IQMCBOT", "IQDLBOT", "IQDNBOT", "IQIDBOT"]
 
 @app.on_message(filters.command(["botschk","چالاکی بۆت","بۆتەکانم","botchk"], prefixes=["/", "!", "%", ",", "", ".", "@", "#"]))
-async def bots_chk(app, message):
-    msg = await message.reply_video(video="https://graph.org/file/201c35646084d635882be.mp4", caption="**پشکنین بۆ بۆتەکانم چالاکن یان ناچالاك👾🚀!**")
+async def bots_chk(_, message):
+    msg = await message.reply_video(video="https://graph.org/file/126924df745817ea5e511.mp4", caption="**پشکنین بۆ بۆتەکانم چالاکن یان ناچالاك👾🚀!**")
     response = "**پشکنین بۆ بۆتەکانم چالاکن یان ناچالاك👾🚀!**\n\n"
     for bot_username in BOT_LIST:
         try:
-            bot = await userbot.get_users(bot_username)
+            bot = await app.get_users(bot_username)
             bot_id = bot.id
             await asyncio.sleep(0.5)
-            bot_info = await userbot.send_message(bot_id, "/start")
+            bot_info = await app.send_message(bot_id, "/start")
             await asyncio.sleep(3)
-            async for bot_message in userbot.get_chat_history(bot_id, limit=1):
+            async for bot_message in app.get_chat_history(bot_id, limit=1):
                 if bot_message.from_user.id == bot_id:
                     response += f"**╭⎋ [{bot.first_name}](tg://user?id={bot.id})\n╰⊚ دۆخ: چالاك ✅**\n\n"
                 else:
@@ -44,3 +48,4 @@ async def bots_chk(app, message):
             response += f"**╭⎋ {bot_username}\n╰⊚ دۆخ: هەڵە ❌**\n"
     
     await msg.edit_text(response)
+                
