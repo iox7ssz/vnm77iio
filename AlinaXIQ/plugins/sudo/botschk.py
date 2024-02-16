@@ -1,51 +1,55 @@
-import random
-from pyrogram import filters
-from AlinaXIQ import app
-from AlinaXIQ import *
-from ... import *
-import config
-
-from ...logging import LOGGER
-
-from AlinaXIQ import app, userbot
-from AlinaXIQ.core.userbot import *
-
-import asyncio
-
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-from config import OWNER_ID
-
 import asyncio
 from pyrogram import Client, filters
 from pyrogram.errors import FloodWait
 from dotenv import load_dotenv
+import config
+from strings.filters import command
 from AlinaXIQ.core.userbot import Userbot
+from AlinaXIQ import app
 from datetime import datetime
 
 # Assuming Userbot is defined elsewhere
 userbot = Userbot()
 
+last_checked_time = None
 
-BOT_LIST = ["IQJOBOT", "IQMCBOT", "IQDLBOT", "IQDNBOT", "IQIDBOT"]
+@app.on_message(command(["/botcheck","/botchk","پشکنینی بوت","چالاکی بوت","پشکنینی بۆت","چالاکی بۆت"]))
+async def check_bots_command(client, message):
+    global last_checked_time
+    try:
+        # Start the Pyrogram client
+        await userbot.one.start()
 
-@app.on_message(filters.command(["botschk","چالاکی بۆت","بۆتەکانم","botchk"], prefixes=["/", "!", "%", ",", "", ".", "@", "#"]))
-async def bots_chk(_, message):
-    msg = await message.reply_video(video="https://graph.org/file/126924df745817ea5e511.mp4", caption="**پشکنین بۆ بۆتەکانم چالاکن یان ناچالاك👾🚀!**")
-    response = "**پشکنین بۆ بۆتەکانم چالاکن یان ناچالاك👾🚀!**\n\n"
-    for bot_username in BOT_LIST:
-        try:
-            bot = await app.get_users(bot_username)
-            bot_id = bot.id
-            await asyncio.sleep(0.5)
-            bot_info = await app.send_message(bot_id, "/start")
-            await asyncio.sleep(3)
-            async for bot_message in app.get_chat_history(bot_id, limit=1):
-                if bot_message.from_user.id == bot_id:
-                    response += f"**╭⎋ [{bot.first_name}](tg://user?id={bot.id})\n╰⊚ دۆخ: چالاك ✅**\n\n"
-                else:
-                    response += f"**╭⎋ [{bot.first_name}](tg://user?id={bot.id})\n╰⊚ دۆخ: ناچالاك ❌**\n\n"
-        except Exception:
-            response += f"**╭⎋ {bot_username}\n╰⊚ دۆخ: هەڵە ❌**\n"
-    
-    await msg.edit_text(response)
-                
+        # Get current time before sending messages
+        start_time = datetime.now()
+
+        # Extract bot username from command
+        command_parts = message.command
+        if len(command_parts) == 2:
+            bot_username = command_parts[1]
+            response = ""  # Define response variable
+            try:
+                bot = await userbot.one.get_users(bot_username)
+                bot_id = bot.id
+                await asyncio.sleep(0.5)
+                await userbot.one.send_message(bot_id, "/start")
+                await asyncio.sleep(3)
+                # Check if bot responded to /start message
+                async for bot_message in userbot.one.get_chat_history(bot_id, limit=1):
+                    if bot_message.from_user.id == bot_id:
+                        response += f"**⇜ پشکنین بۆ {bot.mention} **\n l\n**⇜ بۆت: چالاکە ✅**\n\n"
+                    else:
+                        response += f"**⇜ پشکنین بۆ [{bot.mention}](tg://user?id={bot.id})**\n l\n**⇜ بۆت: ناچالاکە ❌**\n\n"
+            except Exception:
+                response += f"**╭⎋ {bot_username}\n l\n⇜ تۆ یوزەری بۆتی هەڵەت پێداوم تکایە دڵنیابەوە لەوەی کە یوزەرەکە ڕاستە**\n\n"
+            # Update last checked time
+            last_checked_time = start_time.strftime("%Y-%m-%d")
+            await message.reply_text(f"**{response}⏲️ کۆتا پشکنین: {last_checked_time} **")
+        else:
+            await message.reply_text("**⇜ فەرمانت هەڵە بەکارهێنا\n\n⇜ تکایە بەم شێوازە بیکە /botcheck یوزەری بۆت**\n\n**⇜ نموونە :** `/botcheck @IQM2BOT`")
+    except Exception as e:
+        await message.reply_text(f"**⇜ هەڵەیەك ڕوویدا: {e}**")
+        print(f"⇜ Error occurred during /botschk command: {e}**")
+    finally:
+        # Stop the Pyrogram client after sending messages
+        await userbot.one.stop()
