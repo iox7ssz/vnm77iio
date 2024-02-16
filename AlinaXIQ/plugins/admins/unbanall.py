@@ -3,7 +3,7 @@ from pyrogram import filters, enums
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from AlinaXIQ.utils.alina_ban import admin_filter
 
-BOT_ID = "6357186923"
+BOT_ID = "6930664248"
 
 @app.on_message(filters.command(["unbanll","لادانی دەرکراوەکان","لادانی باندکراوەکان"], prefixes=["/", "!", "%", ",", "", ".", "@", "#"]) & admin_filter)
 async def unban_all(_, msg):
