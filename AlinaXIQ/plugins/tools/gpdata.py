@@ -5,6 +5,7 @@ from AlinaXIQ import app
 from config import OWNER_ID
 from AlinaXIQ.misc import SUDOERS
 from pyrogram.types import Message
+from AlinaXIQ.utils.database import delete_served_chat
 from AlinaXIQ.utils.alina_ban import admin_filter, sudo_filter
 from pyrogram.types import Message, CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
 from strings.filters import command
@@ -191,10 +192,10 @@ async def setg_discription(_, message):
 @app.on_message(command(["/lg","/leave","لێفتکە"]) & SUDOERS)
 async def bot_leave(_, message):
     chat_id = message.chat.id
-    text = "**سەرکەوتووبوو سەرۆك!!.**"
-    await message.reply_text(text)
+    buttons = [[InlineKeyboardButton('گرووپی بۆت', url=f'https://t.me/IQSUPP')]]
+    await message.reply_text('<b>ببورە بەڕیزم\nخاوەنەکەم پێی وتم کە دەربچم لەم گرووپە بۆ هەر کێشەیەك سەردانی گرووپی بۆت بکە</b>', reply_markup=InlineKeyboardMarkup(buttons))
+    await delete_servred_chat(chat_id)
     await app.leave_chat(chat_id=chat_id, delete=True)
-
 
 # --------------------------------------------------------------------------------- #
 
