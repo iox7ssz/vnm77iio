@@ -1,4 +1,4 @@
-from pyrogram import Client, filters, idle
+from pyrogram import Client, filters
 from pyrogram.types import InlineQueryResultPhoto, InlineKeyboardMarkup, InlineKeyboardButton, InlineQueryResultArticle, InputTextMessageContent
 from pyrogram import enums
 from AlinaXIQ import app as app
@@ -165,4 +165,3 @@ async def del_whisper(app,query):
        reply_markup=reply_markup
      )
      
-idle()
