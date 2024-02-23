@@ -1,4 +1,4 @@
-from pyrogram import Client, filters
+from pyrogram import Client, filters, idle
 from pyrogram.types import InlineQueryResultPhoto, InlineKeyboardMarkup, InlineKeyboardButton, InlineQueryResultArticle, InputTextMessageContent
 from pyrogram import enums
 from AlinaXIQ import app as app
