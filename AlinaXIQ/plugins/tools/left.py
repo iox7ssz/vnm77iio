@@ -1,4 +1,5 @@
 from AlinaXIQ import app
+import asyncio
 from pyrogram import Client, filters
 from pyrogram.errors import RPCError
 from pyrogram.types import ChatMemberUpdated, InlineKeyboardMarkup, InlineKeyboardButton
