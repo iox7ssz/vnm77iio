@@ -98,18 +98,17 @@ async def member_has_left(client: app, member: ChatMemberUpdated):
             deep_link = f"tg://openmessage?user_id={user.id}"
 
             # Send the message with the photo, caption, and button
-            await client.send_photo(
-                chat_id=member.chat.id,
-                photo=welcome_photo,
-                caption=caption,
-                reply_markup=InlineKeyboardMarkup([
-                    [InlineKeyboardButton(button_text, url=deep_link)]
-                ])
-            )
-        except RPCError as e:
-            print(e)
-            return
-    else:
-        # Handle the case where the user has no profile photo
-        print(f"بەکارهێنەر {user.id} has no profile photo.")
-        
+            message = await client.send_photo(
+            chat_id=member.chat.id,
+            photo=welcome_photo,
+            caption=caption,
+            reply_markup=InlineKeyboardMarkup([
+                [InlineKeyboardButton(button_text, url=deep_link)]
+            ])
+        )
+        async def delete_message():
+            await asyncio.sleep(60)
+            await message.delete()
+
+        # Run the task
+        asyncio.create_task(delete_message())
