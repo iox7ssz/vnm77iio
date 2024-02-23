@@ -5,6 +5,7 @@ from pyrogram import filters
 from pyrogram.types import(InlineKeyboardButton, InlineKeyboardMarkup, InputMediaPhoto, InputMediaVideo, Message)
 from config import LOGGER_ID as LOG_GROUP_ID
 from AlinaXIQ import app 
+from AlinaXIQ.utils.database import delete_served_chat
 from pyrogram.errors import RPCError
 from pyrogram.types import ChatMemberUpdated, InlineKeyboardMarkup, InlineKeyboardButton
 from os import environ
@@ -71,6 +72,7 @@ async def on_left_chat_member(_, message: Message):
         chat_id = message.chat.id
         left = f"**✫ لێفتی گرووپ ✫\n\nناوی گرووپ : {title}\n\nئایدی گرووپ : {chat_id}\n\nدەرکرا لەلایەن : {remove_by}\n\nبۆت : @{app.username} **"
         await app.send_photo(LOG_GROUP_ID, photo=random.choice(photo), caption=left)
-
+        await delete_served_chat(chat_id)
+        await userbot.one.leave_chat(chat_id)
 
 
