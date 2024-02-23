@@ -1,10 +1,10 @@
 import random
 import string
-
+import asyncio
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardMarkup, InputMediaPhoto, Message
 from pytgcalls.exceptions import NoActiveGroupCall
-from strings.filters import command
+
 import config
 from AlinaXIQ import Apple, Resso, SoundCloud, Spotify, Telegram, YouTube, app
 from AlinaXIQ.core.call import Alina
@@ -20,7 +20,14 @@ from AlinaXIQ.utils.inline import (
     slider_markup,
     track_markup,
 )
-from AlinaXIQ.utils.inline.playlist import botplaylist_markup
+from AlinaXIQ.utils.database import (
+    add_served_chat,
+    add_served_user,
+    blacklisted_chats,
+    get_lang,
+    is_banned_user,
+    is_on_off,
+)
 from AlinaXIQ.utils.logger import play_logs
 from AlinaXIQ.utils.stream.stream import stream
 from config import BANNED_USERS, lyrical
@@ -57,6 +64,8 @@ from config import BANNED_USERS, lyrical
     & ~BANNED_USERS
 )
 @PlayWrapper
+# ... (existing code)
+
 async def play_commnd(
     client,
     message: Message,
@@ -68,6 +77,7 @@ async def play_commnd(
     url,
     fplay,
 ):
+    await add_served_chat(message.chat.id)
     mystic = await message.reply_text(
         _["play_2"].format(channel) if channel else _["play_1"]
     )
@@ -77,6 +87,7 @@ async def play_commnd(
     spotify = None
     user_id = message.from_user.id if message.from_user else "033365581"
     user_mention = message.from_user.mention if message.from_user else "None"
+
     audio_telegram = (
         (message.reply_to_message.audio or message.reply_to_message.voice)
         if message.reply_to_message
@@ -178,7 +189,8 @@ async def play_commnd(
                         config.PLAYLIST_FETCH_LIMIT,
                         message.from_user.id,
                     )
-                except:
+                except Exception as e:
+                    print(e)
                     return await mystic.edit_text(_["play_3"])
                 streamtype = "playlist"
                 plist_type = "yt"
@@ -187,18 +199,19 @@ async def play_commnd(
                 else:
                     plist_id = url.split("=")[1]
                 img = config.PLAYLIST_IMG_URL
-                cap = _["play_9"]
+                cap = _["play_10"]
             else:
                 try:
                     details, track_id = await YouTube.track(url)
-                except:
+                except Exception as e:
+                    print(e)
                     return await mystic.edit_text(_["play_3"])
                 streamtype = "youtube"
                 img = details["thumb"]
-                cap = _["play_10"].format(
+                cap = _["play_11"].format(
                     details["title"],
                     details["duration_min"],
-                )
+                                  )
         elif await Spotify.valid(url):
             spotify = True
             if not config.SPOTIFY_CLIENT_ID and not config.SPOTIFY_CLIENT_SECRET:
@@ -239,7 +252,7 @@ async def play_commnd(
                 streamtype = "playlist"
                 plist_type = "spartist"
                 img = config.SPOTIFY_ARTIST_IMG_URL
-                cap = _["play_11"].format(message.from_user.mention)
+                cap = _["play_11"].format(message.from_user.user_mention)
             else:
                 return await mystic.edit_text(_["play_15"])
         elif await Apple.valid(url):
@@ -303,7 +316,7 @@ async def play_commnd(
             return await mystic.delete()
         else:
             try:
-                await Alina.stream_call(url)
+                await VIP.stream_call(url)
             except NoActiveGroupCall:
                 await mystic.edit_text(_["black_9"])
                 return await app.send_message(
@@ -320,7 +333,7 @@ async def play_commnd(
                     message.from_user.id,
                     url,
                     chat_id,
-                    message.from_user.mention,
+                    message.from_user.user_mention,
                     message.chat.id,
                     video=video,
                     streamtype="index",
@@ -462,7 +475,7 @@ async def play_music(client, CallbackQuery, _):
         chat_id, channel = await get_channeplayCB(_, cplay, CallbackQuery)
     except:
         return
-    user_name = CallbackQuery.from_user.mention
+    user_mention = CallbackQuery.from_user.user_mention
     try:
         await CallbackQuery.message.delete()
         await CallbackQuery.answer()
@@ -516,11 +529,18 @@ async def play_music(client, CallbackQuery, _):
     return await mystic.delete()
 
 
+@app.on_callback_query(filters.regex("AlinamousAdmin") & ~BANNED_USERS)
+async def VIPmous_check(client, CallbackQuery):
+    try:
+        await CallbackQuery.answer(
+            "**» پێویستە ئەدمینی ناسراو بیت\n\nواتا ناوت وەکە گرووپ نەبێ کاتێك چات داکەیت\n-> برۆ بەشی ئەدمینەکان\n-> ئەکاونتی خۆت هەڵبژێرە\n-> رۆڵی کۆتای لابدە**",
+            show_alert=True,
+        )
+    except:
+        pass
 
 
-@app.on_callback_query(
-    filters.regex("AlinaPlaylists") & ~BANNED_USERS
-)
+@app.on_callback_query(filters.regex("Alinalaylists") & ~BANNED_USERS)
 @languageCB
 async def play_playlists_command(client, CallbackQuery, _):
     callback_data = CallbackQuery.data.strip()
@@ -535,18 +555,14 @@ async def play_playlists_command(client, CallbackQuery, _):
     ) = callback_request.split("|")
     if CallbackQuery.from_user.id != int(user_id):
         try:
-            return await CallbackQuery.answer(
-                _["playcb_1"], show_alert=True
-            )
+            return await CallbackQuery.answer(_["playcb_1"], show_alert=True)
         except:
             return
     try:
-        chat_id, channel = await get_channeplayCB(
-            _, cplay, CallbackQuery
-        )
+        chat_id, channel = await get_channeplayCB(_, cplay, CallbackQuery)
     except:
         return
-    user_mention = CallbackQuery.from_user.mention
+    user_mention = CallbackQuery.from_user.user_mention
     await CallbackQuery.message.delete()
     try:
         await CallbackQuery.answer()
@@ -568,27 +584,27 @@ async def play_playlists_command(client, CallbackQuery, _):
                 CallbackQuery.from_user.id,
                 True,
             )
-        except Exception:
+        except:
             return await mystic.edit_text(_["play_3"])
     if ptype == "spplay":
         try:
             result, spotify_id = await Spotify.playlist(videoid)
-        except Exception:
+        except:
             return await mystic.edit_text(_["play_3"])
     if ptype == "spalbum":
         try:
             result, spotify_id = await Spotify.album(videoid)
-        except Exception:
+        except:
             return await mystic.edit_text(_["play_3"])
     if ptype == "spartist":
         try:
             result, spotify_id = await Spotify.artist(videoid)
-        except Exception:
+        except:
             return await mystic.edit_text(_["play_3"])
     if ptype == "apple":
         try:
             result, apple_id = await Apple.playlist(videoid, True)
-        except Exception:
+        except:
             return await mystic.edit_text(_["play_3"])
     try:
         await stream(
@@ -606,11 +622,7 @@ async def play_playlists_command(client, CallbackQuery, _):
         )
     except Exception as e:
         ex_type = type(e).__name__
-        err = (
-            e
-            if ex_type == "AssistantErr"
-            else _["general_2"].format(ex_type)
-        )
+        err = e if ex_type == "AssistantErr" else _["general_2"].format(ex_type)
         return await mystic.edit_text(err)
     return await mystic.delete()
 
