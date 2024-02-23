@@ -99,16 +99,25 @@ async def member_has_left(client: app, member: ChatMemberUpdated):
 
             # Send the message with the photo, caption, and button
             message = await client.send_photo(
-            chat_id=member.chat.id,
-            photo=welcome_photo,
-            caption=caption,
-            reply_markup=InlineKeyboardMarkup([
-                [InlineKeyboardButton(button_text, url=deep_link)]
-            ])
-        )
-        async def delete_message():
-            await asyncio.sleep(60)
-            await message.delete()
+                chat_id=member.chat.id,
+                photo=welcome_photo,
+                caption=caption,
+                reply_markup=InlineKeyboardMarkup([
+                    [InlineKeyboardButton(button_text, url=deep_link)]
+                ])
+            )
 
-        # Run the task
-        asyncio.create_task(delete_message())
+            # Schedule a task to delete the message after 30 seconds
+            async def delete_message():
+                await asyncio.sleep(60)
+                await message.delete()
+
+            # Run the task
+            asyncio.create_task(delete_message())
+            
+        except RPCError as e:
+            print(e)
+            return
+    else:
+        # Handle the case where the user has no profile photo
+        print(f"User {user.id} has no profile photo.")
