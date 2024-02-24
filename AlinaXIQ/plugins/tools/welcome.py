@@ -185,7 +185,7 @@ async def greet_new_member(_, member: ChatMemberUpdated):
             )
             # Schedule a task to delete the message after 30 seconds
             async def delete_message():
-                await asyncio.sleep(30)
+                await asyncio.sleep(300)
                 await message.delete()
 
             # Run the task
