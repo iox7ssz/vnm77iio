@@ -48,6 +48,7 @@ async def get_userinfo_img(
     return path
 
 # Function to get user status
+# noinspection PyBroadException
 async def userstatus(user_id):
     try:
         user = await Hiroko.get_users(user_id)
@@ -81,7 +82,6 @@ async def userinfo(_, message):
         user = await Hiroko.get_users(user_id)
         status = await userstatus(user.id)
         id = user_info.id
-        dc_id = user.dc_id
         name = user_info.first_name
         username = user_info.username
         mention = user.mention
@@ -95,13 +95,22 @@ async def userinfo(_, message):
                 user_id=user_id,
                 profile_path=photo,
             )
-            await Hiroko.send_photo(chat_id, photo=welcome_photo, caption=f"""**زانیاری بەڕێزت♥🙇🏻‍♂️\n
- ✧ ¦ ئـایدی ← `{id}`
+            await message.reply_photo(photo=welcome_photo, caption=f"""**زانیاری بەڕێزت♥🙇🏻‍♂️\n
  ✧ ¦ نـاوت ← {mention}
  ✧ ¦ یـوزەرت ← @{username}
+ ✧ ¦ ئـایدی ← `{id}`
  ✧ ¦ ئـەکـتـیـڤـی بـەکـارهـێـنـەر ←\n`{status}`\n
  ✧ ¦ بـایـۆ ← {bio}\n\n
-            **""", reply_to_message_id=message.id)
+            **""",
+            reply_markup=InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton(
+                        name, url=f"https://t.me/{message.from_user.username}")
+                ],
+            ]
+        ),
+    )
         else:
             await Hiroko.send_message(chat_id, text=f"User {user_info.first_name} has no profile photo.")
     except Exception as e:
