@@ -6,6 +6,7 @@ from typing import Union, Optional
 from PIL import Image, ImageDraw, ImageFont
 from os import environ
 import random
+import asyncio
 from pyrogram import Client, filters
 from pyrogram.types import ChatJoinRequest, InlineKeyboardButton, InlineKeyboardMarkup
 from PIL import Image, ImageDraw, ImageFont
@@ -182,5 +183,13 @@ async def greet_new_member(_, member: ChatMemberUpdated):
                     [InlineKeyboardButton(text=add_button_text, url=add_link)],
                 ])
             )
+            # Schedule a task to delete the message after 30 seconds
+            async def delete_message():
+                await asyncio.sleep(30)
+                await message.delete()
+
+            # Run the task
+            asyncio.create_task(delete_message())
+            
         except Exception as e:
             LOGGER.error(e)
