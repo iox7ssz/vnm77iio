@@ -165,3 +165,4 @@ async def del_whisper(app,query):
        reply_markup=reply_markup
      )
      
+idle()
