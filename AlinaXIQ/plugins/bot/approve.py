@@ -17,13 +17,14 @@ resize_text = (
     else text.upper()
 )
 
+
 # --------------------------------------------------------------------------------- #
 
 async def get_userinfo_img(
-    bg_path: str,
-    font_path: str,
-    user_id: Union[int, str],    
-    profile_path: Optional[str] = None
+        bg_path: str,
+        font_path: str,
+        user_id: Union[int, str],
+        profile_path: Optional[str] = None
 ):
     bg = Image.open(bg_path)
 
@@ -51,6 +52,7 @@ async def get_userinfo_img(
     bg.save(path)
     return path
 
+
 # --------------------------------------------------------------------------------- #
 
 bg_path = "AlinaXIQ/assets/userinfo.png"
@@ -62,7 +64,8 @@ font_path = "AlinaXIQ/assets/hiroko.ttf"
 chat_id_env = environ.get("CHAT_ID")
 CHAT_ID = [int(app) for app in chat_id_env.split(",")] if chat_id_env else []
 
-TEXT = environ.get("APPROVED_WELCOME_TEXT", "**❅─────✧❅✦❅✧─────❅\n🥀 سڵاو {mention}**\n\n**🏓بەخربێی بۆ گرووپ/کەناڵ✨**\n\n**➻** {title}\n\n**💞 بە هیوای کاتێکی خۆش بەسەربەریت لێرە**\n**❅─────✧❅✦❅✧─────❅**")
+TEXT = environ.get("APPROVED_WELCOME_TEXT",
+                   "**❅─────✧❅✦❅✧─────❅\n🥀 سڵاو {mention}**\n\n**🏓بەخربێی بۆ گرووپ/کەناڵ✨**\n\n**➻** {title}\n\n**💞 بە هیوای کاتێکی خۆش بەسەربەریت لێرە**\n**❅─────✧❅✦❅✧─────❅**")
 APPROVED = environ.get("APPROVED_WELCOME", "on").lower()
 
 # List of random photo links
@@ -72,9 +75,11 @@ random_photo_links = [
     # Add more links as needed
 ]
 
+
 # Define an event handler for chat join requests
-@app.on_chat_join_request((filters.group | filters.channel) & filters.chat(CHAT_ID) if CHAT_ID else (filters.group | filters.channel))
-async def autoapprove(client: app, message: ChatJoinRequest):
+@app.on_chat_join_request(
+    (filters.group | filters.channel) & filters.chat(CHAT_ID) if CHAT_ID else (filters.group | filters.channel))
+async def autoapprove(client: app, m, message: ChatJoinRequest):
     chat = message.chat  # Chat
     user = message.from_user  # User
 
@@ -104,15 +109,14 @@ async def autoapprove(client: app, message: ChatJoinRequest):
                 [
                     [
                         InlineKeyboardButton(
-                            " ๏ زیادم بکە بۆ گرووپت๏ ", url=f"https://t.me/{BOT_USERNAME}?startgroup=true")
-                    ]
-                ]
-            ),
-    )
-    # Schedule a task to delete the message after 30 seconds
-async def delete_message():
-    await asyncio.sleep(60)
-    await message.delete()
+                            " ๏ زیادم بکە بۆ گرووپت๏ ", url=f"https://t.me/{BOT_USERNAME}?startgroup=true")],
+                ])
+        )
 
-    # Run the task
-    asyncio.create_task(delete_message())
+        # Schedule a task to delete the message after 30 seconds
+        async def delete_message():
+            await asyncio.sleep(60)
+            await m.delete()
+
+        # Run the task
+        asyncio.create_task(delete_message())
