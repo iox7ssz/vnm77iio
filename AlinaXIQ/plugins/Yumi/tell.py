@@ -28,7 +28,7 @@ async def get_group_call(
             ).full_chat
         if full_chat is not None:
             return full_chat.call
-    await app.send_message(f"**No group call Found** {err_msg}")
+    await app.send_message(f"**هیچ تێلێك لە گرووپ نەکراوەتەوە** {err_msg}")
     return False
 
 @app.on_message(filters.regex("^کردنەوەی تێل$"))
@@ -59,11 +59,9 @@ async def start_group_call(c: Client, m: Message):
                 can_manage_chat=False,
                 can_delete_messages=False,
                 can_manage_video_chats=True,
-                can_restrict_members=False,
                 can_change_info=False,
                 can_invite_users=False,
                 can_pin_messages=False,
-                can_promote_members=False,
             ),
         )
         peer = await assistant.resolve_peer(chat_id)
@@ -80,11 +78,9 @@ async def start_group_call(c: Client, m: Message):
             can_manage_chat=False,
             can_delete_messages=False,
             can_manage_video_chats=False,
-            can_restrict_members=False,
             can_change_info=False,
             can_invite_users=False,
             can_pin_messages=False,
-            can_promote_members=False,
             ),
         )                              
         await msg.edit_text("•⎆┊**بە سەرکەوتوویی تێل کرایەوە♥️⚡️•**")
@@ -116,11 +112,9 @@ async def stop_group_call(c: Client, m: Message):
                 can_manage_chat=False,
                 can_delete_messages=False,
                 can_manage_video_chats=True,
-                can_restrict_members=False,
                 can_change_info=False,
                 can_invite_users=False,
                 can_pin_messages=False,
-                can_promote_members=False,
              ),
          )
          if not (
@@ -134,11 +128,9 @@ async def stop_group_call(c: Client, m: Message):
             can_manage_chat=False,
             can_delete_messages=False,
             can_manage_video_chats=False,
-            can_restrict_members=False,
             can_change_info=False,
             can_invite_users=False,
             can_pin_messages=False,
-            can_promote_members=False,
             ),
          )                              
          await msg.edit_text("•⎆┊**بە سەرکەوتوویی تێل داخرا♥️⚡️•**")
