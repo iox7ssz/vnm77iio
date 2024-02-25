@@ -6,7 +6,7 @@ from pyrogram import enums, filters
 from strings.filters import command
 from AlinaXIQ import app
 
-@app.on_message(~filters.private & command(["/gdata","داتای گرووپ","gdata"]), group=2)
+@app.on_message(~filters.private & command(["/gdata","داتای گرووپ","gdata","پشکنینی گرووپ"]), group=2)
 async def instatus(app, message):
     start_time = time.perf_counter()
     user = await app.get_chat_member(message.chat.id, message.from_user.id)
