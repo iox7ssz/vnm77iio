@@ -2,6 +2,7 @@ from AlinaXIQ import app
 from os import environ
 from config import BOT_USERNAME
 import config
+import asyncio
 from pyrogram import Client, filters
 from pyrogram.types import ChatJoinRequest, InlineKeyboardButton, InlineKeyboardMarkup
 from PIL import Image, ImageDraw, ImageFont
@@ -61,7 +62,7 @@ font_path = "AlinaXIQ/assets/hiroko.ttf"
 chat_id_env = environ.get("CHAT_ID")
 CHAT_ID = [int(app) for app in chat_id_env.split(",")] if chat_id_env else []
 
-TEXT = environ.get("APPROVED_WELCOME_TEXT", "**❅─────✧❅✦❅✧─────❅\n🥀 سڵاو {mention}**\n\n**🏓بەخربێی بۆ گرووپ✨**\n\n**➻** {title}\n\n**💞 بە هیوای کاتێکی خۆش بەسەربەریت لێرە**\n**❅─────✧❅✦❅✧─────❅**")
+TEXT = environ.get("APPROVED_WELCOME_TEXT", "**❅─────✧❅✦❅✧─────❅\n🥀 سڵاو {mention}**\n\n**🏓بەخربێی بۆ گرووپ/کەناڵ✨**\n\n**➻** {title}\n\n**💞 بە هیوای کاتێکی خۆش بەسەربەریت لێرە**\n**❅─────✧❅✦❅✧─────❅**")
 APPROVED = environ.get("APPROVED_WELCOME", "on").lower()
 
 # List of random photo links
@@ -108,4 +109,10 @@ async def autoapprove(client: app, message: ChatJoinRequest):
                 ]
             ),
     )
-    
+    # Schedule a task to delete the message after 30 seconds
+async def delete_message():
+    await asyncio.sleep(60)
+    await message.delete()
+
+    # Run the task
+    asyncio.create_task(delete_message())
