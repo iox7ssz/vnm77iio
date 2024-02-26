@@ -3,7 +3,7 @@ from pyrogram import Client
 from pyrogram.types import Message
 from pyrogram import filters
 from pyrogram.types import(InlineKeyboardButton, InlineKeyboardMarkup, InputMediaPhoto, InputMediaVideo, Message)
-from config import LOGGER_ID as LOG_GROUP_ID
+from config import SUPPORT_CHAT, LOGGER_ID
 from AlinaXIQ import app 
 from AlinaXIQ.utils.database import delete_served_chat
 from pyrogram.errors import RPCError
@@ -53,11 +53,11 @@ async def join_watcher(_, message):
                 f"**📌 ناوی گرووپ: {message.chat.title}\n**"
                 f"**🍂 ئایدی گرووپ: {message.chat.id}\n**"
                 f"**🔐 یوزەری گرووپ: @{message.chat.username}\n**"
-                f"**🛰 بەستەری گرووپ: [ᴄʟɪᴄᴋ]({link})\n**"
+                f"**🛰 بەستەری گرووپ: [گرووپ]({link})\n**"
                 f"**📈 ژمارەی ئەندام: {count}\n**"
                 f"**🍓 زیادکرا لەلایەن: {message.from_user.mention}**"
             )
-            await app.send_photo(LOG_GROUP_ID, photo=random.choice(photo), caption=msg, reply_markup=InlineKeyboardMarkup([
+            await app.send_photo(LOGGER_ID, photo=random.choice(photo), caption=msg, reply_markup=InlineKeyboardMarkup([
             [InlineKeyboardButton(f"🍓 بینینی گرووپ 🍓", url=f"{link}")]
          ]))
 
@@ -70,8 +70,8 @@ async def on_left_chat_member(_, message: Message):
         title = message.chat.title
         username = f"@{message.chat.username}" if message.chat.username else "**گرووپی تایبەت**"
         chat_id = message.chat.id
-        left = f"**✫ لێفتی گرووپ ✫\n\nناوی گرووپ : {title}\n\nئایدی گرووپ : {chat_id}\n\nدەرکرا لەلایەن : {remove_by}\n\nبۆت : @{app.username} **"
-        await app.send_photo(LOG_GROUP_ID, photo=random.choice(photo), caption=left)
+        left = f"**✫ لێفتی گرووپ ✫\n\nناوی گرووپ : {title}**\n\n**ئایدی گرووپ :** `{chat_id}`\n\n**دەرکرا لەلایەن : {remove_by}\n\nبۆت : @{app.username} **"
+        await app.send_photo(SUPPORT_CHAT, photo=random.choice(photo), caption=left)
         await delete_served_chat(chat_id)
         await userbot.one.leave_chat(chat_id)
 
