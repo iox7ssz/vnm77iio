@@ -58,7 +58,7 @@ async def member_permissions(chat_id: int, user_id: int):
     return perms
 
 
-from AnonXMusic.core.permissions import adminsOnly
+from AlinaXIQ.core.permissions import adminsOnly
 
 admins_in_chat = {}
 
