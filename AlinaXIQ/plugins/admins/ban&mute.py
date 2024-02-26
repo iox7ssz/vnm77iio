@@ -101,7 +101,7 @@ async def mute_user(user_id, first_name, admin_id, admin_name, chat_id, reason, 
             msg_text = "**من ناتوانم گەشەپێدەر میوت بکەم بەجدیتە؟😂🙂**"
             return msg_text, False
         
-        msg_text = f"**ئۆپسس😂🙂**"
+        msg_text = f"**بۆچی دەتەوێ خۆم میوت بکەم؟ نا ببورە من وەکو تۆ گەمژەنیم😂🙂!**"
         return msg_text, False
 
     user_mention = mention(user_id, first_name)
