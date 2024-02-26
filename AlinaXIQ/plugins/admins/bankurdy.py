@@ -9,7 +9,7 @@ from pyrogram.errors.exceptions.bad_request_400 import (
     UserAdminInvalid,
     BadRequest
 )
-
+from AlinaXIQ.misc import SUDOERS
 import datetime
 from AlinaXIQ import app
 
@@ -45,11 +45,11 @@ async def ban_user(user_id, first_name, admin_id, admin_name, chat_id, reason, t
         msg_text = "**من ناتوانم ئەدمین دەربکەم بەجدیتە؟😂🙂**"
         return msg_text, False
     except Exception as e:
-        if user_id == 833360381:
-            msg_text = "**بۆچی دەتەوێ خۆم دەربکەم؟ نا ببورە من وەکو تۆ گەمژەنیم😂🙂!**"
+        if user_id in SUDOERS:
+            msg_text = "**من ناتوانم گەشەپێدەر دەربکەم بەجدیتە؟😂🙂**"
             return msg_text, False
         
-        msg_text = f"**ئۆپسس😂🙂**"
+        msg_text = f"**بۆچی دەتەوێ خۆم دەربکەم؟ نا ببورە من وەکو تۆ گەمژەنیم😂🙂!**"
         return msg_text, False
 
     user_mention = mention(user_id, first_name)
@@ -72,7 +72,7 @@ async def unban_user(user_id, first_name, admin_id, admin_name, chat_id):
         msg_text = "**ڕۆڵی لادانی دەرکردنم نییە، ڕۆڵی باندم پێبدە بۆ ئەنجامدانی💘•**"
         return msg_text
     except Exception as e:
-        msg_text = f"**ئۆپسس😂🙂**"
+        msg_text = f"**بۆچی دەتەوێ خۆم لابدەم؟ نا ببورە من وەکو تۆ گەمژەنیم😂🙂!**"
         return msg_text
 
     user_mention = mention(user_id, first_name)
@@ -97,11 +97,11 @@ async def mute_user(user_id, first_name, admin_id, admin_name, chat_id, reason, 
         msg_text = "**من ناتوانم ئەدمین میوت بکەم بە جدیتە😂🙂؟**"
         return msg_text, False
     except Exception as e:
-        if user_id == 833360381:
-            msg_text = "**بۆچی دەتەوێ خۆم میوت؟ نا ببورە من وەکو تۆ گەمژەنیم😂🙂!**"
+        if user_id in SUDOERS:
+            msg_text = "**من ناتوانم گەشەپێدەر میوت بکەم بەجدیتە؟😂🙂**"
             return msg_text, False
         
-        msg_text = f"**ئۆپسس😂🙂**"
+        msg_text = f"**بۆچی دەتەوێ خۆم میوت بکەم؟ نا ببورە من وەکو تۆ گەمژەنیم😂🙂!**"
         return msg_text, False
 
     user_mention = mention(user_id, first_name)
@@ -135,7 +135,7 @@ async def unmute_user(user_id, first_name, admin_id, admin_name, chat_id):
         msg_text = "**ڕۆڵی لادانی میوتکردنم نییە، ڕۆڵی میوتم پێبدە بۆ ئەنجامدانی💘•**"
         return msg_text
     except Exception as e:
-        msg_text = f"**ئۆپسس😂🙂**"
+        msg_text = f"**بۆچی دەتەوێ خۆم لابدەم؟ نا ببورە من وەکو تۆ گەمژەنیم😂🙂!**"
         return msg_text
 
     user_mention = mention(user_id, first_name)
