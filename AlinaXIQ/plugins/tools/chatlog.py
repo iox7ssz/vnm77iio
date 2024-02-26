@@ -71,8 +71,9 @@ async def on_left_chat_member(_, message: Message):
         username = f"@{message.chat.username}" if message.chat.username else "**گرووپی تایبەت**"
         chat_id = message.chat.id
         left = f"**✫ لێفتی گرووپ ✫\n\nناوی گرووپ : {title}**\n\n**ئایدی گرووپ :** `{chat_id}`\n\n**دەرکرا لەلایەن : {remove_by}\n\nبۆت : @{app.username} **"
-        buttons = [[InlineKeyboardButton('نوێکارییەکانی ئەلینا 🍻', url=f'https://t.me/MGIMT')]]
-        await app.send_photo(SUPPORT_CHAT, photo=random.choice(photo), caption=left, buttons)
+        await app.send_photo(SUPPORT_CHAT, photo=random.choice(photo), caption=left, reply_markup=InlineKeyboardMarkup([
+            [InlineKeyboardButton(f"نوێکارییەکانی ئەلینا 🍻", url=f"https://t.me/MGIMT")]
+         ]))
         await delete_served_chat(chat_id)
         await userbot.one.leave_chat(chat_id)
 
