@@ -3,7 +3,7 @@ from pyrogram import Client
 from pyrogram.types import Message
 from pyrogram import filters
 from pyrogram.types import(InlineKeyboardButton, InlineKeyboardMarkup, InputMediaPhoto, InputMediaVideo, Message)
-from config import SUPPORT_CHAT, LOGGER_ID
+from config import GROUP_BOT, LOGGER_ID
 from AlinaXIQ import app 
 from AlinaXIQ.utils.database import delete_served_chat
 from pyrogram.errors import RPCError
@@ -71,7 +71,7 @@ async def on_left_chat_member(_, message: Message):
         username = f"@{message.chat.username}" if message.chat.username else "**گرووپی تایبەت**"
         chat_id = message.chat.id
         left = f"**✫ لێفتی گرووپ ✫\n\nناوی گرووپ : {title}**\n\n**ئایدی گرووپ :** `{chat_id}`\n\n**دەرکرا لەلایەن : {remove_by}\n\nبۆت : @{app.username} **"
-        await app.send_photo(SUPPORT_CHAT, photo=random.choice(photo), caption=left, reply_markup=InlineKeyboardMarkup([
+        await app.send_photo(GROUP_BOT, photo=random.choice(photo), caption=left, reply_markup=InlineKeyboardMarkup([
             [InlineKeyboardButton(f"نوێکارییەکانی ئەلینا 🍻", url=f"https://t.me/MGIMT")]
          ]))
         await delete_served_chat(chat_id)
