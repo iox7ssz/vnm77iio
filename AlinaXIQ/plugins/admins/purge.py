@@ -8,7 +8,7 @@ from AlinaXIQ.utils.alina_ban import admin_filter
 from AlinaXIQ import app
 
 
-@app.on_message(filters.command("purge") & admin_filter & SUDOERS)
+@app.on_message(filters.command("purge") & admin_filter)
 async def purge(app: app, msg: Message):
     
     if msg.chat.type != ChatType.SUPERGROUP:
@@ -48,7 +48,7 @@ async def purge(app: app, msg: Message):
 
 
 
-@app.on_message(filters.command("spurge") & admin_filter & SUDOERS)
+@app.on_message(filters.command("spurge") & admin_filter)
 async def spurge(app: app, msg: Message):
 
     if msg.chat.type != ChatType.SUPERGROUP:
@@ -79,7 +79,7 @@ async def spurge(app: app, msg: Message):
     return
 
 
-@app.on_message(filters.command("del") & admin_filter & SUDOERS)
+@app.on_message(filters.command("del") & admin_filter)
 async def del_msg(app: app, msg: Message):
     if msg.chat.type != ChatType.SUPERGROUP:
         await msg.reply_text(text="**ناتوانم نامەکان پاکبکەمەوە لە گرووپێکی بنەڕەتیدا گرووپێکی گشتی دروست بکە🖤•**")
