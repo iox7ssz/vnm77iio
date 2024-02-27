@@ -209,6 +209,23 @@ async def play_commnd(
                     details["title"],
                     details["duration_min"],
                 )
+            elif "youtube.com/@" in url:
+            # Check if the URL is a YouTube channel link or user link
+                try:
+                    video_urls = fetch_channel_videos(url)
+                    for video_url in video_urls:
+                        # Add each video URL to the queue for playback
+                        details, track_id = await YouTube.track(video_url)
+                        streamtype = "playlist"
+                        img = details["thumb"]
+                        cap = _["play_10"].format(details["title"], details["duration_min"])
+                        await queue_video_for_playback(video_url, details, track_id, streamtype, img, cap)
+                        
+                    await mystic.edit_text("All videos from the channel have been added to the queue.")
+                except Exception as e:
+                    print(e)  # Handle or log the error appropriately
+                    await mystic.edit_text(_["play_3"])  # Error message for the user
+                
             else:
                 try:
                     details, track_id = await YouTube.track(url)
@@ -325,7 +342,7 @@ async def play_commnd(
             return await mystic.delete()
         else:
             try:
-                await VIP.stream_call(url)
+                await Alina.stream_call(url)
             except NoActiveGroupCall:
                 await mystic.edit_text(_["black_9"])
                 return await app.send_message(
@@ -538,18 +555,8 @@ async def play_music(client, CallbackQuery, _):
     return await mystic.delete()
 
 
-@app.on_callback_query(filters.regex("AlinamousAdmin") & ~BANNED_USERS)
-async def VIPmous_check(client, CallbackQuery):
-    try:
-        await CallbackQuery.answer(
-            "**» پێویستە ئەدمینی ناسراو بیت\n\nواتا ناوت وەکە گرووپ نەبێ کاتێك چات داکەیت\n-> برۆ بەشی ئەدمینەکان\n-> ئەکاونتی خۆت هەڵبژێرە\n-> رۆڵی کۆتای لابدە**",
-            show_alert=True,
-        )
-    except:
-        pass
 
-
-@app.on_callback_query(filters.regex("Alinalaylists") & ~BANNED_USERS)
+@app.on_callback_query(filters.regex("AlinaPlaylists") & ~BANNED_USERS)
 @languageCB
 async def play_playlists_command(client, CallbackQuery, _):
     callback_data = CallbackQuery.data.strip()
