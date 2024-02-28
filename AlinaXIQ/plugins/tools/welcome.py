@@ -6,7 +6,6 @@ from typing import Union, Optional
 from PIL import Image, ImageDraw, ImageFont
 from os import environ
 import random
-import asyncio
 from pyrogram import Client, filters
 from pyrogram.types import ChatJoinRequest, InlineKeyboardButton, InlineKeyboardMarkup
 from PIL import Image, ImageDraw, ImageFont
@@ -131,9 +130,11 @@ async def auto_state(_, message):
         await message.reply("**چالاکردنی فەرمانی بەخێرهاتن تەنیا بۆ ئەدمینەکان**")
 
 
+
 @app.on_chat_member_updated(filters.group, group=-3)
 async def greet_new_member(_, message, member: ChatMemberUpdated):
     chat_id = member.chat.id
+    chat = message.chat
     count = await app.get_chat_members_count(chat_id)
     A = await wlcm.find_one(chat_id)
     if A:
@@ -142,7 +143,7 @@ async def greet_new_member(_, message, member: ChatMemberUpdated):
     user = member.new_chat_member.user if member.new_chat_member else member.from_user
     
     # Add the modified condition here
-    if member.new_chat_member and not member.old_chat_member and member.new_chat_member.status != "restricted":
+    if member.new_chat_member and not member.old_chat_member and member.new_chat_member.status != "kicked":
     
         try:
             pic = await app.download_media(
@@ -166,30 +167,27 @@ async def greet_new_member(_, message, member: ChatMemberUpdated):
             temp.MELCOW[f"welcome-{member.chat.id}"] = await app.send_photo(
                 member.chat.id,
                 photo=welcomeimg,
-                caption=f"""
-**❅────✦ 𝖶𝖾𝗅𝖼𝗈𝗆𝖾 ✦────❅
-
-▰▰▰▰▰▰▰▰▰▰▰▰▰
-➻ 𝖭𝖺𝗆𝖾 » {user.mention} **
-**➻ 𝖨𝖣 »** `{user.id}`
-**➻ 𝖴𝗌𝖾𝗋𝗇𝖺𝗆𝖾 » @{user.username}
-➻ 𝖳𝗈𝗍𝖺𝗅 𝖬𝖾𝗆𝖻𝖾𝗋 » {count}
-▰▰▰▰▰▰▰▰▰▰▰▰▰
-
-❅─────✧❅✦❅✧─────❅**
-""",
-                reply_markup=InlineKeyboardMarkup([
+                caption=f"""**
+┏━━━━━━━━━━━━━━━♡
+┠ 𝗚𝗿𝗼𝘂𝗽 𝗡𝗮𝗺𝗲 ➪ {message.chat.title}
+┠ 𝗚𝗿𝗼𝘂𝗽 𝗨𝘀𝗲𝗿 ➪ @{username}
+┠ 𝗚𝗿𝗼𝘂𝗽 𝗜𝗗 ➪** `{message.chat.id}`
+**┠ 𝗡𝗮𝗺𝗲  ➪ {user.mention}
+┠ 𝗨𝘀𝗲𝗿 ➪ @{user.username}
+┠ 𝗨𝘀𝗲𝗿 𝗜𝗗 ➪** `{user.id}`
+**┠ 𝗠𝗲𝗺𝗯𝗲𝗿𝘀 ➪ {count}
+┗━━━━━━━━━━━━━━━♡
+╔═════ ▓▓ ࿇ ▓▓ ════╗
+[💠   𝗪𝗘𝗟𝗖𝗢𝗠𝗘  💠](https://t.me/mgimt)
+╚═════ ▓▓ ࿇ ▓▓ ════╝
+▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
+➪ {app.mention} 𝗕𝗲𝘀𝘁 𝗕𝗼𝘁 𝗙𝗼𝗿 𝗞𝘂𝗿𝗱
+▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
+**""",
+               reply_markup=InlineKeyboardMarkup([
                     [InlineKeyboardButton(button_text, url=deep_link)],
                     [InlineKeyboardButton(text=add_button_text, url=add_link)],
                 ])
             )
-            # Schedule a task to delete the message after 30 seconds
-            async def delete_message():
-                await asyncio.sleep(300)
-                await message.delete()
-
-            # Run the task
-            asyncio.create_task(delete_message())
-            
         except Exception as e:
             LOGGER.error(e)
