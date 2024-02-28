@@ -96,9 +96,9 @@ def welcomepic(pic, user, chatname, id, uname, brightness_factor=1.3):
     return f"downloads/welcome#{id}.png"
 
 
-@app.on_message(filters.command("awelcome") & ~filters.private)
+@app.on_message(filters.command("awel") & ~filters.private)
 async def auto_state(_, message):
-    usage = "**ᴜsᴀɢᴇ:**\n**⦿ /awelcome [on|off]**"
+    usage = "**بەکارهێنان:**\n⦿/wel [on|off]\n"
     if len(message.command) == 1:
         return await message.reply_text(usage)
     chat_id = message.chat.id
@@ -109,22 +109,22 @@ async def auto_state(_, message):
     ):
         A = await wlcm.find_one(chat_id)
         state = message.text.split(None, 1)[1].strip().lower()
-        if state == "off":
+        if state == "on":
             if A:
-                await message.reply_text("**ᴀssɪsᴛᴀɴᴛ ᴡᴇʟᴄᴏᴍᴇ ɴᴏᴛɪғɪᴄᴀᴛɪᴏɴ ᴀʟʀᴇᴀᴅʏ ᴅɪsᴀʙʟᴇᴅ !**")
-            else:
+                return await message.reply_text("**بەخێرهاتن پێشتر چالاککراوە**")
+            elif not A:
                 await wlcm.add_wlcm(chat_id)
-                await message.reply_text(f"**ᴅɪsᴀʙʟᴇᴅ ᴡᴇʟᴄᴏᴍᴇ ɴᴏᴛɪғɪᴄᴀᴛɪᴏɴ ɪɴ** {message.chat.title} ʙʏ ᴀssɪsᴛᴀɴᴛ")
-        elif state == "on":
+                await message.reply_text(f"**بەخێرهاتن چالاککرا بۆ {message.chat.title}**")
+        elif state == "off":
             if not A:
-                await message.reply_text("**ᴇɴᴀʙʟᴇᴅ ᴀssɪsᴛᴀɴᴛ ᴡᴇʟᴄᴏᴍᴇ ɴᴏᴛɪғɪᴄᴀᴛɪᴏɴ.**")
-            else:
+                return await message.reply_text("**بەخێرهاتن پێشتر لەکارخراوە**")
+            elif A:
                 await wlcm.rm_wlcm(chat_id)
-                await message.reply_text(f"**ᴇɴᴀʙʟᴇᴅ ᴀssɪsᴛᴀɴᴛ ᴡᴇʟᴄᴏᴍᴇ ɴᴏᴛɪғɪᴄᴀᴛɪᴏɴ ɪɴ ** {message.chat.title}")
+                await message.reply_text(f"**بەخێرهاتن لەکارخرا لە {message.chat.title}**")
         else:
             await message.reply_text(usage)
     else:
-        await message.reply("**sᴏʀʀʏ ᴏɴʟʏ ᴀᴅᴍɪɴs ᴄᴀɴ ᴇɴᴀʙʟᴇ ᴀssɪsᴛᴀɴᴛ ᴡᴇʟᴄᴏᴍᴇ ɴᴏᴛɪғɪᴄᴀᴛɪᴏɴ!**")
+        await message.reply("**چالاکردنی فەرمانی بەخێرهاتن تەنیا بۆ ئەدمینەکان**")
 
 
 
