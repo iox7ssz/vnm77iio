@@ -129,7 +129,7 @@ async def auto_state(_, message):
 
 
 @app.on_chat_member_updated(filters.group, group=-3)
-async def greet_new_member(_, member: ChatMemberUpdated):
+async def greet_new_member(_, message, member: ChatMemberUpdated):
     chat_id = member.chat.id
     count = await app.get_chat_members_count(chat_id)
     A = await wlcm.find_one(chat_id)
@@ -163,18 +163,23 @@ async def greet_new_member(_, member: ChatMemberUpdated):
             temp.MELCOW[f"welcome-{member.chat.id}"] = await app.send_photo(
                 member.chat.id,
                 photo=welcomeimg,
-                caption=f"""
-**❅────✦ ᴡᴇʟᴄᴏᴍᴇ ✦────❅**
-
-▰▰▰▰▰▰▰▰▰▰▰▰▰
-**➻ ɴᴀᴍᴇ »** {user.mention}
-**➻ ɪᴅ »** `{user.id}`
-**➻ ᴜ_ɴᴀᴍᴇ »** @{user.username}
-**➻ ᴛᴏᴛᴀʟ ᴍᴇᴍʙᴇʀs »** {count}
-▰▰▰▰▰▰▰▰▰▰▰▰▰
-
-**❅─────✧❅✦❅✧─────❅**
-""",
+                caption=f"""**
+┏━━━━━━━━━━━━━━━♡
+┠ 𝗚𝗿𝗼𝘂𝗽 𝗡𝗮𝗺𝗲 ➪ {message.chat.title}
+┠ 𝗚𝗿𝗼𝘂𝗽 𝗨𝘀𝗲𝗿 ➪ @{username}
+┠ 𝗚𝗿𝗼𝘂𝗽 𝗜𝗗 ➪** `{message.chat.id}`
+**┠ 𝗡𝗮𝗺𝗲  ➪ {user.mention}
+┠ 𝗨𝘀𝗲𝗿 ➪ @{user.username}
+┠ 𝗨𝘀𝗲𝗿 𝗜𝗗 ➪** `{user.id}`
+**┠ 𝗠𝗲𝗺𝗯𝗲𝗿𝘀 ➪ {count}
+┗━━━━━━━━━━━━━━━♡
+╔═════ ▓▓ ࿇ ▓▓ ════╗
+[💠   𝗪𝗘𝗟𝗖𝗢𝗠𝗘  💠](https://t.me/mgimt)
+╚═════ ▓▓ ࿇ ▓▓ ════╝
+▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
+➪ {app.mention} 𝗕𝗲𝘀𝘁 𝗕𝗼𝘁 𝗙𝗼𝗿 𝗞𝘂𝗿𝗱
+▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
+**""",
                 reply_markup=InlineKeyboardMarkup([
                     [InlineKeyboardButton(button_text, url=deep_link)],
                     [InlineKeyboardButton(text=add_button_text, url=add_link)],
