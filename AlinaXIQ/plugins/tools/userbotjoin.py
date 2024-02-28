@@ -2,6 +2,7 @@ import asyncio
 from AlinaXIQ.misc import SUDOERS
 from AlinaXIQ.core.userbot import Userbot
 from pyrogram import Client, filters
+from strings.filters import command
 from pyrogram.errors import UserAlreadyParticipant
 import asyncio
 import random
