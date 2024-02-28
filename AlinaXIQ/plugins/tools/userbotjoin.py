@@ -22,7 +22,7 @@ from AlinaXIQ.utils.database import get_assistant
 links = {}
 
 
-@app.on_message(command(["/userbotjoin", f"userbotjoin@{app.username}","زیادکردنی یاریدەدەر",f"جۆین@{app.username}]) & ~filters.private)
+@app.on_message(command(["/userbotjoin", f"userbotjoin@{app.username}","زیادکردنی یاریدەدەر",f"جۆین@{app.username}"]) & ~filters.private)
 async def join_group(client, message):
     chat_id = message.chat.id
     userbot = await get_assistant(message.chat.id)
