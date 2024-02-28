@@ -19,14 +19,16 @@ from strings.filters import command
 from AlinaXIQ.utils.alina_ban import admin_filter
 from AlinaXIQ.utils.decorators.userbotjoin import UserbotWrapper
 from AlinaXIQ.utils.database import get_assistant
+
 links = {}
 
 
-@app.on_message(command(["/userbotjoin", f"userbotjoin@{app.username}","زیادکردنی یاریدەدەر",f"جۆین@{app.username}"]) & ~filters.private)
+@app.on_message(command(
+    ["/userbotjoin", f"userbotjoin@{app.username}", "زیادکردنی یاریدەدەر", f"جۆین@{app.username}"]) & ~filters.private)
 async def join_group(client, message):
     chat_id = message.chat.id
     userbot = await get_assistant(message.chat.id)
-    
+
     if message.chat.username:
         try:
             await userbot.join_chat(message.chat.username)
@@ -44,7 +46,8 @@ async def join_group(client, message):
                     return
                 invite_link = await app.create_chat_invite_link(chat_id)
                 await userbot.join_chat(invite_link.invite_link)
-                await message.reply("**❌┋ ئەکاونتی یاریدەدەر باندکراوە باندەکەی لابە سەرەتا دواتر فەرمان دووبارە بکەوە**")
+                await message.reply(
+                    "**❌┋ ئەکاونتی یاریدەدەر باندکراوە باندەکەی لابە سەرەتا دواتر فەرمان دووبارە بکەوە**")
             else:
                 await message.reply("**❌┋ ئەکاونتی یاریدەدەر باندکراوە باندەکەی لابە سەرەتا**")
     else:
@@ -55,20 +58,22 @@ async def join_group(client, message):
                     await app.unban_chat_member(chat_id, userbot.id)
                     invite_link = await app.create_chat_invite_link(chat_id)
                     await userbot.join_chat(invite_link.invite_link)
-                    await message.reply("**❌┋ ئەکاونتی یاریدەدەر باندکراوە باندەکەی لابە سەرەتا دواتر فەرمان دووبارە بکەوە**")
+                    await message.reply(
+                        "**❌┋ ئەکاونتی یاریدەدەر باندکراوە باندەکەی لابە سەرەتا دواتر فەرمان دووبارە بکەوە**")
                 except Exception as e:
                     await message.reply("**❌┋ ئەکاونتی یاریدەدەر باندکراوە باندەکەی لابە سەرەتا**")
                     return
                 invite_link = await app.create_chat_invite_link(chat_id)
                 await userbot.join_chat(invite_link.invite_link)
-                await message.reply("**❌┋ ئەکاونتی یاریدەدەر باندکراوە باندەکەی لابە سەرەتا دواتر فەرمان دووبارە بکەوە**")
+                await message.reply(
+                    "**❌┋ ئەکاونتی یاریدەدەر باندکراوە باندەکەی لابە سەرەتا دواتر فەرمان دووبارە بکەوە**")
             else:
                 await message.reply("**ئەکاونتی یاریدەدەر لە گرووپە**")
         except ChatAdminRequired:
             await message.reply("**❌┋ ببورە من ئەدمین نیم**")
 
-        
-@app.on_message(command(["/userbotleave","دەرکردنی یاریدەدەر","/assleft"]) & ~filters.private & admin_filter)
+
+@app.on_message(command(["/userbotleave", "دەرکردنی یاریدەدەر", "/assleft"]) & ~filters.private & admin_filter)
 async def leave_one(client, message):
     try:
         userbot = await get_assistant(message.chat.id)
@@ -78,7 +83,7 @@ async def leave_one(client, message):
         print(e)
 
 
-@app.on_message(command(["لێفتی گشتی", f"/leaveall@{app.username}", f"لێفت@{app.username}]) & SUDOERS)
+@app.on_message(command(["لێفتی گشتی", f"/leaveall@{app.username}", f"لێفت@{app.username}"]) & SUDOERS)
 async def leave_all(client, message):
     if message.from_user.id not in SUDOERS:
         return
