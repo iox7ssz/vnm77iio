@@ -25,85 +25,73 @@ links = {}
 async def join_group(client, message):
     chat_id = message.chat.id
     userbot = await get_assistant(message.chat.id)
-    
+    done = await message.reply("**✅┋ کەمێك چاوەڕێ بکە بانگهێشت دەکرێت . .**") 
     # Get chat member object
     chat_member = await app.get_chat_member(chat_id, app.id)
     
-    # Condition 1:- Group username is present, bot is not admin
+    # Condition 1: Group username is present, bot is not admin
     if message.chat.username and not chat_member.status == ChatMemberStatus.ADMINISTRATOR:
-        await userbot.join_chat(message.chat.username)
-        return
+        try:
+            await userbot.join_chat(message.chat.username)
+            await done.edit_text("**✅┋ بە سەرکەوتوویی ئەکاونتی یاریدەدەر جۆین بوو**")
+        except ChatAdminRequired:
+            await done.edit_text("**✅┋ ڕۆڵی باندم مێبدە بۆ ئەوەی بتوانم باندی لابەم**")
+            
+
+    # Condition 2: Group username is present, bot is admin, and Userbot is not banned
+    if message.chat.username and chat_member.status == ChatMemberStatus.ADMINISTRATOR:
+        try:
+            invite_link = await app.create_chat_invite_link(chat_id, expire_date=None)
+            await userbot.join_chat(invite_link.invite_link)
+            await done.edit_text("**✅┋ بە سەرکەوتوویی ئەکاونتی یاریدەدەر جۆین بوو**")
+        except Exception as e:
+            await done.edit_text(str(e))
+
     
-    # Condition 2: Group username is present, bot is admin and Userbot is banned
+    
+    # Condition 3: Group username is not present/group is private, bot is admin and Userbot is banned
     if message.chat.username and chat_member.status == ChatMemberStatus.ADMINISTRATOR:
         userbot_member = await app.get_chat_member(chat_id, userbot.id)
         if userbot_member.status in [ChatMemberStatus.BANNED, ChatMemberStatus.RESTRICTED]:
             try:
                 await app.unban_chat_member(chat_id, userbot.id)
-                await message.reply("**✅┋ ئەکاونتی یاریدەدەر باندی لادرا**")
-                invite_link = await app.create_chat_invite_link(chat_id)
-                await userbot.join_chat(invite_link.invite_link)
-                await message.reply("**❌┋ ئەکاونتی یاریدەدەر باندکراوە باندەکەی لابە سەرەتا دواتر فەرمان دووبارە بکەوە**")
+                await done.edit_text("**✅┋ ئەکاونتی یاریدەدەر باندی لادرا**")
+                await userbot.join_chat(message.chat.username)
+                await done.edit_text("**❌┋ ئەکاونتی یاریدەدەر باندکراوە باندەکەی لابە سەرەتا دواتر فەرمان دووبارە بکەوە**")
             except Exception as e:
-                await message.reply(str(e))
+                await done.edit_text("**❌┋ شکستی هێنا لە جۆین کردن تکایە ڕۆڵی باند و بانگکردنی کەسەکانم پێبە**")
         return
     
-    # Condition 3: Group username is not present/group is private, bot is not admin
+    # Condition 4: Group username is not present/group is private, bot is not admin
     if not message.chat.username and not chat_member.status == ChatMemberStatus.ADMINISTRATOR:
-        await message.reply_text("**✅┋ بمکە ئەدمین بۆ ئەوەی بتوانم بانگهێشتی بکەم**")
-        return
-    
-    # Condition 4: Group username is not present/group is private, bot is admin and Userbot is banned
-    if not message.chat.username and chat_member.status == ChatMemberStatus.ADMINISTRATOR:
-        userbot_member = await app.get_chat_member(chat_id, userbot.id)
-        if userbot_member.status in [ChatMemberStatus.BANNED, ChatMemberStatus.RESTRICTED]:
-            try:
-                await app.unban_chat_member(chat_id, userbot.id)
-                await message.reply("**✅┋ ئەکاونتی یاریدەدەر باندی لادرا**")
-                invite_link = await app.create_chat_invite_link(chat_id)
-                await userbot.join_chat(invite_link.invite_link)
-                await message.reply("**❌┋ ئەکاونتی یاریدەدەر باندکراوە باندەکەی لابە سەرەتا دواتر فەرمان دووبارە بکەوە**")
-            except Exception as e:
-                await message.reply(str(e))
-        return
-    
+        await done.edit_text("**✅┋ بمکە ئەدمین بۆ ئەوەی بتوانم بانگهێشتی بکەم**")
+        
+
+
     # Condition 5: Group username is not present/group is private, bot is admin
     if not message.chat.username and chat_member.status == ChatMemberStatus.ADMINISTRATOR:
         try:
-            invite_link = await app.create_chat_invite_link(chat_id)
+            invite_link = await app.create_chat_invite_link(chat_id, expire_date=None)
             await userbot.join_chat(invite_link.invite_link)
             await message.reply("**✅┋ بە سەرکەوتوویی ئەکاونتی یاریدەدەر جۆین بوو**")
         except Exception as e:
             await message.reply(str(e))
-    
-    # Condition 6: Group username is present, bot is admin, and Userbot is not banned
-    if message.chat.username and chat_member.status == ChatMemberStatus.ADMINISTRATOR:
-        userbot_member = await app.get_chat_member(chat_id, userbot.id)
-        if userbot_member.status not in [ChatMemberStatus.BANNED, ChatMemberStatus.RESTRICTED]:
-            await userbot.join_chat(message.chat.username)
-            return
 
-    # Condition 7: Group username is not present/private group, bot is admin
-    if not message.chat.username and chat_member.status == ChatMemberStatus.ADMINISTRATOR:
-        try:
-            invite_link = await app.create_chat_invite_link(chat_id)
-            await userbot.join_chat(invite_link.invite_link)
-            await message.reply("**✅┋ بە سەرکەوتوویی ئەکاونتی یاریدەدەر جۆین بوو**")
-        except Exception as e:
-            await message.reply(str(e))
     
-    # Condition 8: Group username is present, bot is not admin, and Userbot is banned
-    if message.chat.username and not chat_member.status == ChatMemberStatus.ADMINISTRATOR:
+    
+    # Condition 6: Group username is not present/group is private, bot is admin and Userbot is banned
+    if not message.chat.username and chat_member.status == ChatMemberStatus.ADMINISTRATOR:
         userbot_member = await app.get_chat_member(chat_id, userbot.id)
         if userbot_member.status in [ChatMemberStatus.BANNED, ChatMemberStatus.RESTRICTED]:
-            await message.reply_text("**❌┋ ڕۆڵی باندم نییە ئەوەی بتوانم باندی لابەم**")
-            return
-
-
-    # 
-
-
-
+            try:
+                await app.unban_chat_member(chat_id, userbot.id)
+                await done.edit_text("**✅┋ ئەکاونتی یاریدەدەر باندی لادرا\n\n✅┋ بنووسە : /userbotjoin **")
+                invite_link = await app.create_chat_invite_link(chat_id, expire_date=None)
+                await userbot.join_chat(invite_link.invite_link)
+                await done.edit_text("**❌┋ ئەکاونتی یاریدەدەر باندکراوە باندەکەی لابە سەرەتا دواتر فەرمان دووبارە بکەوە**")
+            except Exception as e:
+                await message.reply(str(e))
+        return
         
 @app.on_message(command(["/userbotleave", "دەرکردنی یاریدەدەر", "/assleft"]) & ~filters.private & admin_filter)
 async def leave_one(client, message):
