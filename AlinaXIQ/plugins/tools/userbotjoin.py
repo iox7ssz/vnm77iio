@@ -2,8 +2,8 @@ import asyncio
 from AlinaXIQ.misc import SUDOERS
 from AlinaXIQ.core.userbot import Userbot
 from pyrogram import Client, filters
-from strings.filters import command
 from pyrogram.errors import UserAlreadyParticipant
+from AlinaXIQ import app
 import asyncio
 import random
 from pyrogram import Client, filters
@@ -16,6 +16,7 @@ from pyrogram.errors import (
 )
 from AlinaXIQ import app
 from AlinaXIQ.utils.alina_ban import admin_filter
+from AlinaXIQ.utils.decorators.userbotjoin import UserbotWrapper
 from AlinaXIQ.utils.database import get_assistant, is_active_chat
 links = {}
 
@@ -121,7 +122,7 @@ async def leave_all(client, message):
 
     left = 0
     failed = 0
-    lol = await message.reply("✅┋ ئەکاونتی یاریدەدەری بۆت لێفت دەکات لە هەموو گرووپەکان")
+    lol = await message.reply("**✅┋ ئەکاونتی یاریدەدەری بۆت لێفت دەکات لە هەموو گرووپەکان**")
     try:
         userbot = await get_assistant(message.chat.id)
         async for dialog in userbot.one.get_dialogs():
@@ -136,7 +137,7 @@ async def leave_all(client, message):
             except BaseException:
                 failed += 1
                 await lol.edit(
-                    f"**✅┋ لێفت دەکات . .\n\n✅┋ لێفت دەکات لە : {left} گرووپ\n❌┋ شکستی هێنا لە : {failed} گرووپ**"
+                    f"**✅┋ لێفت دەکات . .\n\n✅┋ لێفتی کرد لە : {left} گرووپ\n❌┋ شکستی هێنا لە : {failed} گرووپ**"
                 )
             await asyncio.sleep(3)
     finally:
