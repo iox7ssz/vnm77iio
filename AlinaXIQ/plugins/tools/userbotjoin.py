@@ -16,7 +16,6 @@ from pyrogram.errors import (
 )
 from AlinaXIQ import app
 from AlinaXIQ.utils.alina_ban import admin_filter
-from AlinaXIQ.utils.decorators.userbotjoin import UserbotWrapper
 from AlinaXIQ.utils.database import get_assistant, is_active_chat
 links = {}
 
