@@ -15,6 +15,7 @@ from pyrogram.errors import (
     UserNotParticipant,
 )
 from AlinaXIQ import app
+from strings.filters import command
 from AlinaXIQ.utils.alina_ban import admin_filter
 from AlinaXIQ.utils.decorators.userbotjoin import UserbotWrapper
 from AlinaXIQ.utils.database import get_assistant, is_active_chat
