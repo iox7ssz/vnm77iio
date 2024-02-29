@@ -10,7 +10,6 @@ from AlinaXIQ.utils.database import add_served_chat, delete_served_chat
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from AlinaXIQ.utils.database import get_assistant
 import asyncio
-from strings.filters import command
 from AlinaXIQ.misc import SUDOERS
 from AlinaXIQ.core.userbot import Userbot
 from pyrogram import Client, filters
@@ -26,6 +25,7 @@ from pyrogram.errors import (
     UserAlreadyParticipant,
     UserNotParticipant,
 )
+from strings.filters import command
 from AlinaXIQ import app
 from AlinaXIQ.utils.alina_ban import admin_filter
 from AlinaXIQ.utils.decorators.userbotjoin import UserbotWrapper
@@ -55,7 +55,8 @@ async def add_all(client, message):
     bot_username = command_parts[1]
     try:
         userbot = await get_assistant(message.chat.id)
-        app_id = (await app.get_users(bot_username)).id
+        bot = await app.get_users(bot_username)
+        app_id = bot.id
         done = 0
         failed = 0
         lol = await message.reply("**✅┋ زیادکردنی بۆت لە هەموو گرووپەکان**")
@@ -67,17 +68,17 @@ async def add_all(client, message):
                 await userbot.add_chat_members(dialog.chat.id, app_id)
                 done += 1
                 await lol.edit(
-                    f"**✅┋ یاریدەدەر {bot_username} زیادی کرد\n🧑🏻‍💻┋ بۆ {done} گرووپ\n(Timestamp: {time.time()})**"
+                    f"**✅┋ زیادکردنی {bot_username} بۆ گرووپ\n\n✅┋ زیادکرا بۆ: {done} گرووپ\n❌┋ شکستی هێنا لە {failed} گرووپ\n\n⏲️┋ کاتی خایەنراو : {time.time()}**"
                 )
             except Exception as e:
                 failed += 1
                 await lol.edit(
-                    f"**❌┋ شکستی هێنا لە زیادکردنی {bot_username} بۆ گرووپ\n(Timestamp: {time.time()})**"
+                    f"**✅┋ زیادکردنی {bot_username} بۆ گرووپ\n\n✅┋ زیادکرا بۆ: {done} گرووپ\n❌┋ شکستی هێنا لە {failed} گرووپ\n\n⏲️┋ کاتی خایەنراو : {time.time()}**"
                 )
-            await asyncio.sleep(2)  # Adjust sleep time based on rate limits
+            await asyncio.sleep(3)  # Adjust sleep time based on rate limits
         
         await lol.edit(
-            f"**✅┋ زیادکرا {bot_username}\n🧑🏻‍💻┋ بۆ {done} گرووپ\n❌┋ شکستی هێنا لە {failed} گرووپ\n(Timestamp: {time.time()})**"
+            f"**🧑🏻‍💻 {bot_username} بە سەرکەوتوویی زیادکرا\n\n✅┋ زیادکرا بۆ: {done} گرووپ\n❌┋ شکستی هێنا لە {failed} گرووپ\n\n⏲️┋ کاتی خایەنراو : {time.time()}**"
         )
     except Exception as e:
         await message.reply(f"**❌┋ هەڵە : {str(e)}**")
