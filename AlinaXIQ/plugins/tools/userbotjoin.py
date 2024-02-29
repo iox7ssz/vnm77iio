@@ -25,7 +25,9 @@ links = {}
 async def join_group(client, message):
     chat_id = message.chat.id
     userbot = await get_assistant(message.chat.id)
-    done = await message.reply("**✅┋ کەمێك چاوەڕێ بکە بانگهێشت دەکرێت . .**") 
+    userbot_id = userbot.id
+    done = await message.reply("**✅┋ تکایە کەمێك چاوەڕێ بکە بانگھێشت دەکرێت . .**")
+    await asyncio.sleep(1)
     # Get chat member object
     chat_member = await app.get_chat_member(chat_id, app.id)
     
@@ -33,17 +35,16 @@ async def join_group(client, message):
     if message.chat.username and not chat_member.status == ChatMemberStatus.ADMINISTRATOR:
         try:
             await userbot.join_chat(message.chat.username)
-            await done.edit_text("**✅┋ بە سەرکەوتوویی ئەکاونتی یاریدەدەر جۆین بوو**")
-        except ChatAdminRequired:
-            await done.edit_text("**✅┋ ڕۆڵی باندم مێبدە بۆ ئەوەی بتوانم باندی لابەم**")
+            await done.edit_text("**✅┋ بە سەرکەوتوویی یاریدەدەری بۆت جۆینی کرد**")
+        except Exception as e:
+            await done.edit_text("**🧑🏻‍💻┋ پێویستە ئەدمین بم و ڕۆڵم هەبێت بۆ لادانی باندی یاریدەدەرەکەم**")
             
 
     # Condition 2: Group username is present, bot is admin, and Userbot is not banned
     if message.chat.username and chat_member.status == ChatMemberStatus.ADMINISTRATOR:
         try:
-            invite_link = await app.create_chat_invite_link(chat_id, expire_date=None)
-            await userbot.join_chat(invite_link.invite_link)
-            await done.edit_text("**✅┋ بە سەرکەوتوویی ئەکاونتی یاریدەدەر جۆین بوو**")
+            await userbot.join_chat(message.chat.username)
+            await done.edit_text("**✅┋ بە سەرکەوتوویی یاریدەدەری بۆت جۆینی کرد**")
         except Exception as e:
             await done.edit_text(str(e))
 
@@ -55,27 +56,36 @@ async def join_group(client, message):
         if userbot_member.status in [ChatMemberStatus.BANNED, ChatMemberStatus.RESTRICTED]:
             try:
                 await app.unban_chat_member(chat_id, userbot.id)
-                await done.edit_text("**✅┋ ئەکاونتی یاریدەدەر باندی لادرا**")
+                await done.edit_text("**✅┋ باندی یاریدەدەر لادەدرێت . .**")
                 await userbot.join_chat(message.chat.username)
-                await done.edit_text("**❌┋ ئەکاونتی یاریدەدەر باندکراوە باندەکەی لابە سەرەتا دواتر فەرمان دووبارە بکەوە**")
+                await done.edit_text("**👾┋ ئەکاونتی یاریدەدەر باندکراوە، بەڵام ئێستا باندی لادەدەم، دواتر جۆینی گرووپ دەکات ✅**")
             except Exception as e:
-                await done.edit_text("**❌┋ شکستی هێنا لە جۆین کردن تکایە ڕۆڵی باند و بانگکردنی کەسەکانم پێبە**")
+                await done.edit_text("**❌┋ شکستی هێنا لە جۆین کردن، تکایە ڕۆڵی باند و بانگھێشت کردنم پێبدە تاوەکو بتوانم ڕاستەوخۆ زیادی بکەمە گرووپ دووبارە بنووسە : /userbotjoin **")
         return
     
     # Condition 4: Group username is not present/group is private, bot is not admin
     if not message.chat.username and not chat_member.status == ChatMemberStatus.ADMINISTRATOR:
-        await done.edit_text("**✅┋ بمکە ئەدمین بۆ ئەوەی بتوانم بانگهێشتی بکەم**")
+        await done.edit_text("**🧑🏻‍💻┋ پێویستە ئەدمین بم بۆ بانگھێشت کردنی یاریدەدەرەکەم**")
         
 
 
     # Condition 5: Group username is not present/group is private, bot is admin
     if not message.chat.username and chat_member.status == ChatMemberStatus.ADMINISTRATOR:
         try:
-            invite_link = await app.create_chat_invite_link(chat_id, expire_date=None)
-            await userbot.join_chat(invite_link.invite_link)
-            await message.reply("**✅┋ بە سەرکەوتوویی ئەکاونتی یاریدەدەر جۆین بوو**")
+            try:
+                userbot_member = await app.get_chat_member(chat_id, userbot.id)
+                if userbot_member.status not in [ChatMemberStatus.BANNED, ChatMemberStatus.RESTRICTED]:
+                    await done.edit_text("**✅┋ ئەکاونتی یاریدەدەر پێشتر جۆینی کردووە و لە گرووپە**")
+                    return
+            except Exception as e:
+                await done.edit_text("**✅┋ تکایە کەمێك چاوەڕێ بکە بانگھێشت دەکرێت . .**")
+                await done.edit_text("**✅┋ تکایە کەمێك چاوەڕێ بکە بانگھێشت دەکرێت . .**")
+                invite_link = await app.create_chat_invite_link(chat_id, expire_date=None)
+                await asyncio.sleep(2)
+                await userbot.join_chat(invite_link.invite_link)
+                await done.edit_text("**✅┋ بە سەرکەوتوویی یاریدەدەری بۆت جۆینی کرد**")
         except Exception as e:
-            await message.reply(str(e))
+            await done.edit_text(f"**💀┋➻ من یاریدەدەرەکەم دۆزیەوە و وە جۆینی گرووپی نەکردووە بەڵام من ڕۆڵی بانگھێشت کردنی خەڵکیم نییە بۆیە دەبێت ڕۆڵی بانگھێشت کردنم پێبدەیت دواتر دووبارە بنووسیت : /userbotjoin \n\n➥ ئایدی » @{userbot.username} **")
 
     
     
@@ -85,14 +95,16 @@ async def join_group(client, message):
         if userbot_member.status in [ChatMemberStatus.BANNED, ChatMemberStatus.RESTRICTED]:
             try:
                 await app.unban_chat_member(chat_id, userbot.id)
-                await done.edit_text("**✅┋ ئەکاونتی یاریدەدەر باندی لادرا\n\n✅┋ بنووسە : /userbotjoin **")
+                await done.edit_text("**✅┋ ئەکاونتی یاریدەدەر باندی لادرا\nدووبارە بنووسە : /userbotjoin**")
                 invite_link = await app.create_chat_invite_link(chat_id, expire_date=None)
-                await userbot.join_chat(invite_link.invite_link)
-                await done.edit_text("**❌┋ ئەکاونتی یاریدەدەر باندکراوە باندەکەی لابە سەرەتا دواتر فەرمان دووبارە بکەوە**")
+                await asyncio.sleep(2)
+                userbot.join_chat(invite_link.invite_link)
+                await done.edit_text("**👾┋ ئەکاونتی یاریدەدەر باندکراوە، بەڵام ئێستا باندی لادەدەم، دواتر جۆینی گرووپ دەکات ✅**")
             except Exception as e:
-                await message.reply(str(e))
+                await done.edit_text(f"**✅┋➻  من یاریدەدەرەکەم دۆزیەوە و وە باندکراوە لە گرووپ بەڵام من ڕۆڵی لادانی باندم نییە بۆیە دەبێت ڕۆڵی باند کردنم پێبدەیت دواتر دووبارە بنووسیت : /userbotjoin \n\n➥ ئایدی » @{userbot.username} **")
         return
-        
+
+
 @app.on_message(command(["/userbotleave", "دەرکردنی یاریدەدەر", "/assleft"]) & ~filters.private & admin_filter)
 async def leave_one(client, message):
     try:
