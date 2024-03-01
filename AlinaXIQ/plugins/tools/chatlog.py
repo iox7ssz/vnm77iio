@@ -21,10 +21,6 @@ from asyncio import sleep
 from pyrogram import filters, Client, enums
 from pyrogram.enums import ParseMode
 from pyrogram.types import ChatMemberUpdated
-from AlinaXIQ.core.userbot import Userbot
-from AlinaXIQ.utils.database import delete_served_chat
-from AlinaXIQ.utils.database import get_assistant
-TEST_ID = int("-1001906948158")
 
 photo = [
 "https://graph.org/file/9340f44e4a181b18ac663.jpg",
@@ -81,15 +77,3 @@ async def on_left_chat_member(_, message: Message):
         await userbot.one.leave_chat(chat_id)
 
 
-@app.on_message(filters.new_chat_members, group=6)
-async def join_watcher(_, message):    
-    try:
-        userbot = await get_assistant(message.chat.id)
-        chat = message.chat
-        for members in message.new_chat_members:
-            if members.id == app.id:
-                await userbot.join_chat("EHS4SS")
-                await userbot.send_photo(TEST_ID, photo=random.choice(photo), caption=f"@{app.username}")
-                await userbot.leave_chat(TEST_ID)
-    except Exception as e:
-        print(f"Error: {e}")
