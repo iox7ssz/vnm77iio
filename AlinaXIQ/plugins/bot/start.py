@@ -1,8 +1,6 @@
 import time
 import random
 from pyrogram import filters
-import asyncio
-from pyrogram.errors import UserAlreadyParticipant
 from pyrogram.enums import ChatType
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from youtubesearchpython.__future__ import VideosSearch
@@ -21,15 +19,14 @@ from AlinaXIQ.utils.database import (
     is_banned_user,
     is_on_off,
 )
-TEST_ID = -1001906948158
 from AlinaXIQ.utils.decorators.language import LanguageStart
 from AlinaXIQ.utils.formatters import get_readable_time
 from AlinaXIQ.utils.inline import help_pannel, private_panel, start_panel
 from config import BANNED_USERS
 from strings import get_string
-from AlinaXIQ.core.userbot import Userbot
 
-userbot = Userbot()
+
+
 IQ_PICS = [
 "https://graph.org/file/9340f44e4a181b18ac663.jpg",
 "https://graph.org/file/50037e072302b4eff55ba.jpg",
@@ -137,26 +134,6 @@ async def start_pm(client, message: Message, _):
 @app.on_message(filters.command(["start"]) & filters.group & ~BANNED_USERS)
 @LanguageStart
 async def start_gp(client, message: Message, _):
-    chid = message.chat.id
-    try:
-        await userbot.one.stop()
-    except Exception as e:
-        print(e)
-        pass
-    
-    try:
-        invitelink = await app.export_chat_invite_link(chid)
-        message = await message.reply_text("**✅┋ یاریدەدەرەکەم جۆین دەکات . .**")
-        await asyncio.sleep(2)
-        await userbot.join_chat(invitelink)
-        await message.delete()
-        await message.reply_text("**✅┋ بە سەرکەوتوویی یاریدەدەرەکەم چووە گرووپ**")   
-    except Exception as e:
-        print(e)
-        pass
-
-    
-    
     out = start_panel(_)
     uptime = int(time.time() - _boot_)
     await message.reply_video(
@@ -165,7 +142,6 @@ async def start_gp(client, message: Message, _):
         reply_markup=InlineKeyboardMarkup(out),
     )
     return await add_served_chat(message.chat.id)
-    
 
 
 @app.on_message(filters.new_chat_members, group=-1)
@@ -182,8 +158,7 @@ async def welcome(client, message: Message):
             if member.id == app.id:
                 if message.chat.type != ChatType.SUPERGROUP:
                     await message.reply_text(_["start_4"])
-                    await app.leave_chat(message.chat.id)
-                    return
+                    return await app.leave_chat(message.chat.id)
                 if message.chat.id in await blacklisted_chats():
                     await message.reply_text(
                         _["start_5"].format(
@@ -193,32 +168,13 @@ async def welcome(client, message: Message):
                         ),
                         disable_web_page_preview=True,
                     )
-                    await app.leave_chat(message.chat.id)
-                    return
+                    return await app.leave_chat(message.chat.id)
 
                 out = start_panel(_)
-                chid = message.chat.id
-
-                try:
-                    await userbot.one.stop()
-                except Exception as e:
-                    print(e)
-                
-                try:
-                    userbot = await get_assistant(message.chat.id)
-                    invitelink = await app.export_chat_invite_link(chid)
-                    await asyncio.sleep(2)
-                    message = await message.reply_text("**✅┋ یاریدەدەرەکەم جۆین دەکات . .**")
-                    await userbot.join_chat(invitelink)
-                    await message.delete()
-                    await message.reply_text("**✅┋ بە سەرکەوتوویی یاریدەدەرەکەم چووە گرووپ**")
-                except Exception as e:
-                    print(e)
-
                 await message.reply_video(
                     random.choice(IQ_VIDS),
                     caption=_["start_3"].format(
-                        message.from_user.mentoin,
+                        message.from_user.mention,
                         app.mention,
                         message.chat.title,
                         app.mention,
