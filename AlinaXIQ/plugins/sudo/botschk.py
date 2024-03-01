@@ -6,7 +6,7 @@ import config
 from strings.filters import command
 from AlinaXIQ.core.userbot import Userbot
 from AlinaXIQ import app
-from AlinaXIQ import datetime
+from datetime import datetime
 from AlinaXIQ.utils.database import get_assistant
 # Assuming Userbot is defined elsewhere
 
