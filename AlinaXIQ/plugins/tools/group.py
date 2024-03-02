@@ -2,13 +2,48 @@ from pyrogram import Client, filters
 from pyrogram.types import Message
 from AlinaXIQ import app
 from config import OWNER_ID
+from pyrogram.types import VideoChatEnded, Message
+from AlinaXIQ.core.call import Alina
 # vc on
 @app.on_message(filters.video_chat_started)
 async def brah(client, message):
-       await message.reply("<b>• ئەدمین هەڵسا بە کردنەوەی تێل ✓</b>")
+       await message.reply("<b>• ئەدمین هەڵسا بە کردنەوەی تێل ⎋</b>")
+       
 @app.on_message(filters.video_chat_ended)
 async def brah2(client, message):
-       await message.reply("<b>• ئەدمین هەڵسا بە داخستنی تێل ✗</b>")
+    da = message.video_chat_ended.duration
+    ma = divmod(da, 60)
+    ho = divmod(ma[0], 60)
+    day = divmod(ho[0], 24)
+    if da < 60:
+       await message.reply(f"**🎻┋ تێل کۆتایی پێھات، ماوەکەی {da} چرکە و داخرا ⎋**")        
+    elif 60 < da < 3600:
+        if 1 <= ma[0] < 2:
+            await message.reply(f"**🎻┋ تێل کۆتایی پێھات، ماوەکەی 1 خولەك ⎋**")
+        elif 2 <= ma[0] < 3:
+            await message.reply(f"**🎻┋ تێل کۆتایی پێھات، ماوەکەی 2 خولەك ⎋**")
+        elif 3 <= ma[0] < 11:
+            await message.reply(f"**🎻┋ تێل کۆتایی پێھات، ماوەکەی {ma[0]} خولەك ⎋**")  
+        else:
+            await message.reply(f"**🎻┋ تێل کۆتایی پێھات، ماوەکەی {ma[0]} خولەك ⎋**")
+    elif 3600 < da < 86400:
+        if 1 <= ho[0] < 2:
+            await message.reply(f"**🎻┋ تێل کۆتایی پێھات، ماوەکەی 1 کاتژمێر ⎋**")
+        elif 2 <= ho[0] < 3:
+            await message.reply(f"**🎻┋ تێل کۆتایی پێھات، ماوەکەی 2 کاتژمێر ⎋**")
+        elif 3 <= ho[0] < 11:
+            await message.reply(f"**🎻┋ تێل کۆتایی پێھات، ماوەکەی {ho[0]} کاتژمێر ⎋**")  
+        else:
+            await message.reply(f"**🎻┋ تێل کۆتایی پێھات، ماوەکەی {ho[0]} کاتژمێر ⎋**")
+    else:
+        if 1 <= day[0] < 2:
+            await message.reply(f"**🎻┋ تێل کۆتایی پێھات، ماوەکەی 1 ڕۆژ ⎋**")
+        elif 2 <= day[0] < 3:
+            await message.reply(f"**🎻┋ تێل کۆتایی پێھات، ماوەکەی 2 ڕۆژ ⎋**")
+        elif 3 <= day[0] < 11:
+            await message.reply(f"**🎻┋ تێل کۆتایی پێھات، ماوەکەی {day[0]} ڕۆژ ⎋**")  
+        else:
+            await message.reply(f"**🎻┋ تێل کۆتایی پێھات، ماوەکەی {day[0]} ڕۆژ ⎋**")
 @app.on_message(filters.video_chat_members_invited)
 async def fuckoff(client, message):
            text = f"<b>• لەلایەن ← {message.from_user.mention} </b>"
