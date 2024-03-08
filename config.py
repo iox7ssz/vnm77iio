@@ -86,6 +86,7 @@ STRING5 = getenv("STRING_SESSION5", None)
 
 
 BANNED_USERS = filters.user()
+LOG_FILE_NAME = "logs.txt"
 adminlist = {}
 lyrical = {}
 votemode = {}
