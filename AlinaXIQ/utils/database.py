@@ -967,3 +967,34 @@ async def get_video_bitrate(chat_id: int) -> str:
         return VideoParameters.from_quality(VideoQuality.SD_480p)
     elif str(mode) == "SD_360p":
         return VideoParameters.from_quality(VideoQuality.SD_360p)
+
+
+from typing import Dict, List, Union
+from AlinaXIQ.core.mongo import mongodb
+
+themedb = mongodb.notes
+
+
+async def _get_theme(chat_id: int) -> Dict[str, int]:
+    _notes = await themedb.find_one({"chat_id": chat_id})
+    if not _notes:
+        return {}
+    return _notes["notes"]
+
+
+async def get_theme(chat_id: int, name: str) -> Union[bool, dict]:
+    name = name.lower().strip()
+    _notes = await _get_theme(chat_id)
+    if name in _notes:
+        return _notes[name]
+    else:
+        return False
+
+
+async def save_theme(chat_id: int, name: str, note: dict):
+    name = name.lower().strip()
+    _notes = await _get_theme(chat_id)
+    _notes[name] = note
+    await themedb.update_one(
+        {"chat_id": chat_id}, {"$set": {"notes": _notes}}, upsert=True
+    )
