@@ -30,7 +30,7 @@ search_engine_parser
 py-tgcalls==1.1.6
 pykeyboard
 pyshorteners
-pyrofork
+pyrogram
 python-dotenv
 pyyaml==6.0.1
 requests
