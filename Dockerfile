@@ -1,12 +1,11 @@
-FROM nikolaik/python-nodejs:python3.10-nodejs19
+FROM python:3.11-bookworm
 
-RUN apt-get update \
+RUN apt-get update -y && apt-get upgrade -y \
     && apt-get install -y --no-install-recommends ffmpeg \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
-
 COPY . /app/
 WORKDIR /app/
-RUN pip3 install --no-cache-dir -U -r requirements.txt
-
-CMD bash start
+RUN pip3 install --no-cache-dir --upgrade pip
+RUN pip3 install --no-cache-dir --upgrade --requirement requirements.txt
+CMD python3 -m AlinaXIQ
