@@ -27,10 +27,10 @@ qrcode
 pytz
 future==0.18.3
 search_engine_parser
-py-tgcalls==0.9.7
+py-tgcalls==1.1.6
 pykeyboard
 pyshorteners
-pyrogram==2.0.106
+pyrofork
 python-dotenv
 pyyaml==6.0.1
 requests
