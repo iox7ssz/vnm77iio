@@ -37,7 +37,6 @@ from AlinaXIQ.utils.database import (
     group_assistant,
     is_autoend,
     music_on,
-    check_theme,
     remove_active_chat,
     remove_active_video_chat,
     set_loop,
@@ -465,7 +464,6 @@ class Call(PyTgCalls):
                         original_chat_id,
                         text=_["call_9"],
                     )
-                theme = await check_theme(chat_id)
                 img = await get_thumb(videoid, userid, theme)
                 button = telegram_markup(_, chat_id)
                 run = await app.send_photo(
@@ -524,7 +522,6 @@ class Call(PyTgCalls):
                         original_chat_id,
                         text=_["call_9"],
                     )
-                theme = await check_theme(chat_id)
                 img = await get_thumb(videoid, userid, theme)
                 button = stream_markup(_, videoid, chat_id)
                 await mystic.delete()
@@ -628,7 +625,6 @@ class Call(PyTgCalls):
                     db[chat_id][0]["mystic"] = run
                     db[chat_id][0]["markup"] = "tg"
                 else:
-                    theme = await check_theme(chat_id)
                     img = await get_thumb(videoid, userid, theme)
                     button = stream_markup(_, videoid, chat_id)
                     run = await app.send_photo(
