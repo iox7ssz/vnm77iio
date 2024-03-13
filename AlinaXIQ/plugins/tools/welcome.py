@@ -1,5 +1,4 @@
 from AlinaXIQ import app
-from pyrogram import filters
 from pyrogram.errors import RPCError
 from pyrogram.types import ChatMemberUpdated, InlineKeyboardMarkup, InlineKeyboardButton
 from os import environ
@@ -16,15 +15,36 @@ from PIL import Image, ImageDraw, ImageFont, ImageEnhance
 from asyncio import sleep
 from pyrogram import filters, Client, enums
 from pyrogram.enums import ParseMode
-from pyrogram import *
-from pyrogram.types import *
 from logging import getLogger
-from AlinaXIQ.utils.alina_ban import admin_filter
-import os
+from AlinaXIQ.utils.daxx_ban import admin_filter
 from PIL import ImageDraw, Image, ImageFont, ImageChops
 from pyrogram import *
 from pyrogram.types import *
 from logging import getLogger
+from pyrogram import Client, filters
+import requests
+import random
+import os
+import re
+import asyncio
+import time
+from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
+import asyncio
+from AlinaXIQ.misc import SUDOERS
+from AlinaXIQ.mongo.afkdb import PROCESS
+from pyrogram import Client, filters
+from pyrogram.errors import UserAlreadyParticipant
+from AlinaXIQ import app
+import asyncio
+import random
+from pyrogram import Client, filters
+from pyrogram.enums import ChatMemberStatus
+from pyrogram.errors import (
+    ChatAdminRequired,
+    InviteRequestSent,
+    UserAlreadyParticipant,
+    UserNotParticipant,
+)
 
 
 random_photo = [
@@ -95,8 +115,7 @@ def welcomepic(pic, user, chatname, id, uname, brightness_factor=1.3):
     background.save(f"downloads/welcome#{id}.png")
     return f"downloads/welcome#{id}.png"
 
-
-@app.on_message(filters.command(["wel", "welcome"]) & ~filters.private)
+@app.on_message(filters.command(["welcome", "wel"]) & ~filters.private)
 async def auto_state(_, message):
     usage = "**بەکارهێنان:**\n⦿/wel [on|off]\n"
     if len(message.command) == 1:
@@ -109,16 +128,16 @@ async def auto_state(_, message):
     ):
         A = await wlcm.find_one(chat_id)
         state = message.text.split(None, 1)[1].strip().lower()
-        if state == "on":
+        if state == "off":
             if A:
-                return await message.reply_text("**بەخێرهاتن پێشتر چالاککراوە**")
-            elif not A:
+                await message.reply_text("**بەخێرهاتن پێشتر لەکارخراوە**")
+            else:
                 await wlcm.add_wlcm(chat_id)
-                await message.reply_text(f"**بەخێرهاتن چالاککرا بۆ {message.chat.title}**")
-        elif state == "off":
+                await message.reply_text(f"**بەخێرهاتن لەکارخرا لە {message.chat.title}**")
+        elif state == "on":
             if not A:
-                return await message.reply_text("**بەخێرهاتن پێشتر لەکارخراوە**")
-            elif A:
+                await message.reply_text("**بەخێرهاتن پێشتر چالاککراوە**")
+            else:
                 await wlcm.rm_wlcm(chat_id)
                 await message.reply_text(f"**بەخێرهاتن لەکارخرا لە {message.chat.title}**")
         else:
@@ -139,7 +158,7 @@ async def greet_new_member(_, member: ChatMemberUpdated):
     user = member.new_chat_member.user if member.new_chat_member else member.from_user
     
     # Add the modified condition here
-    if member.new_chat_member and not member.old_chat_member:
+    if member.new_chat_member and not member.old_chat_member and member.new_chat_member.status != "kicked":
     
         try:
             pic = await app.download_media(
