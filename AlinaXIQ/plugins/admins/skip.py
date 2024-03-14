@@ -44,7 +44,7 @@ async def skip(cli, message: Message, _, chat_id):
                                 try:
                                     await message.reply_text(
                                         text=_["admin_6"].format(
-                                            message.from_user.mention,
+                                            user_mention,
                                             message.chat.title,
                                         ),
                                         reply_markup=close_markup(_),
@@ -71,7 +71,7 @@ async def skip(cli, message: Message, _, chat_id):
             if not check:
                 await message.reply_text(
                     text=_["admin_6"].format(
-                        message.from_user.mention, message.chat.title
+                        user_mention, message.chat.title
                     ),
                     reply_markup=close_markup(_),
                 )
@@ -83,7 +83,7 @@ async def skip(cli, message: Message, _, chat_id):
             try:
                 await message.reply_text(
                     text=_["admin_6"].format(
-                        message.from_user.mention, message.chat.title
+                        user_mention, message.chat.title
                     ),
                     reply_markup=close_markup(_),
                 )
