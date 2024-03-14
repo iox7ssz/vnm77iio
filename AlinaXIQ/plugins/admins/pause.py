@@ -18,5 +18,5 @@ async def pause_admin(cli, message: Message, _, chat_id):
     user_mention = message.from_user.mention if message.from_user else "𝖠𝖽𝗆𝗂𝗇"
     await Alina.pause_stream(chat_id)
     await message.reply_text(
-        _["admin_2"].format(message.from_user.mention), reply_markup=close_markup(_)
+        _["admin_2"].format(user_mention), reply_markup=close_markup(_)
     )
