@@ -13,20 +13,21 @@ from AlinaXIQ.utils.database import (
     is_nonadmin_chat,
     is_skipmode,
 )
-from config import SUPPORT_CHAT, adminlist, confirmer
+from config import adminlist, confirmer
 from strings import get_string
 
 from ..formatters import int_to_alpha
 
-
+#Ar
 def AdminRightsCheck(mystic):
     async def wrapper(client, message):
         if await is_maintenance() is False:
-            if message.from_user.id not in SUDOERS:
-                return await message.reply_text(
-                    text=f"{app.mention} ɪs ᴜɴᴅᴇʀ ᴍᴀɪɴᴛᴇɴᴀɴᴄᴇ, ᴠɪsɪᴛ <a href={SUPPORT_CHAT}>sᴜᴘᴘᴏʀᴛ ᴄʜᴀᴛ</a> ғᴏʀ ᴋɴᴏᴡɪɴɢ ᴛʜᴇ ʀᴇᴀsᴏɴ.",
-                    disable_web_page_preview=True,
-                )
+            if message.from_user:
+                if message.from_user.id and message.from_user.id not in SUDOERS:
+                    return await message.reply_text(
+                        text=f"{app.mention} ɪs ᴜɴᴅᴇʀ ᴍᴀɪɴᴛᴇɴᴀɴᴄᴇ, ᴠɪsɪᴛ ғᴏʀ ᴋɴᴏᴡɪɴɢ ᴛʜᴇ ʀᴇᴀsᴏɴ.",
+                        disable_web_page_preview=True,
+                    )
 
         try:
             await message.delete()
@@ -38,7 +39,6 @@ def AdminRightsCheck(mystic):
             _ = get_string(language)
         except:
             _ = get_string("en")
-
         if message.command[0][0] == "c":
             chat_id = await get_cmode(message.chat.id)
             if chat_id is None:
@@ -53,51 +53,52 @@ def AdminRightsCheck(mystic):
             return await message.reply_text(_["general_5"])
         is_non_admin = await is_nonadmin_chat(message.chat.id)
         if not is_non_admin:
-            if message.from_user.id not in SUDOERS:
-                admins = adminlist.get(message.chat.id)
-                if not admins:
-                    return await message.reply_text(_["admin_13"])
-                else:
-                    if message.from_user.id not in admins:
-                        if await is_skipmode(message.chat.id):
-                            upvote = await get_upvote_count(chat_id)
-                            text = f"""<b>پێویستە ئەدمین بیت
+            if message.from_user:
+                if message.from_user.id and message.from_user.id not in SUDOERS:
+                    admins = adminlist.get(message.chat.id)
+                    if not admins:
+                        return await message.reply_text(_["admin_13"])
+                    else:
+                        if message.from_user.id not in admins:
+                            if await is_skipmode(message.chat.id):
+                                upvote = await get_upvote_count(chat_id)
+                                text = f"""<b>پێویستە ئەدمین بیت
 
 ئەگەر ئەدمینی ڕیلۆد بکە : /reload
 
 » {upvote} دەتوانیت لە ڕیگای دەنگدانەوە بتوانی</b>"""
 
-                            command = message.command[0]
-                            if command[0] == "c":
-                                command = command[1:]
-                            if command == "speed":
-                                return await message.reply_text(_["admin_14"])
-                            MODE = command.title()
-                            upl = InlineKeyboardMarkup(
-                                [
+                                command = message.command[0]
+                                if command[0] == "c":
+                                    command = command[1:]
+                                if command == "speed":
+                                    return await message.reply_text(_["admin_14"])
+                                MODE = command.title()
+                                upl = InlineKeyboardMarkup(
                                     [
-                                        InlineKeyboardButton(
-                                            text="دەنگدان",
-                                            callback_data=f"ADMIN  UpVote|{chat_id}_{MODE}",
-                                        ),
+                                        [
+                                            InlineKeyboardButton(
+                                                text="دەنگدان",
+                                                callback_data=f"ADMIN  UpVote|{chat_id}_{MODE}",
+                                            ),
+                                        ]
                                     ]
-                                ]
-                            )
-                            if chat_id not in confirmer:
-                                confirmer[chat_id] = {}
-                            try:
-                                vidid = db[chat_id][0]["vidid"]
-                                file = db[chat_id][0]["file"]
-                            except:
+                                )
+                                if chat_id not in confirmer:
+                                    confirmer[chat_id] = {}
+                                try:
+                                    vidid = db[chat_id][0]["vidid"]
+                                    file = db[chat_id][0]["file"]
+                                except:
+                                    return await message.reply_text(_["admin_14"])
+                                senn = await message.reply_text(text, reply_markup=upl)
+                                confirmer[chat_id][senn.id] = {
+                                    "vidid": vidid,
+                                    "file": file,
+                                }
+                                return
+                            else:
                                 return await message.reply_text(_["admin_14"])
-                            senn = await message.reply_text(text, reply_markup=upl)
-                            confirmer[chat_id][senn.id] = {
-                                "vidid": vidid,
-                                "file": file,
-                            }
-                            return
-                        else:
-                            return await message.reply_text(_["admin_14"])
 
         return await mystic(client, message, _, chat_id)
 
@@ -107,11 +108,12 @@ def AdminRightsCheck(mystic):
 def AdminActual(mystic):
     async def wrapper(client, message):
         if await is_maintenance() is False:
-            if message.from_user.id not in SUDOERS:
-                return await message.reply_text(
-                    text=f"{app.mention} ɪs ᴜɴᴅᴇʀ ᴍᴀɪɴᴛᴇɴᴀɴᴄᴇ, ᴠɪsɪᴛ <a href={SUPPORT_CHAT}>sᴜᴘᴘᴏʀᴛ ᴄʜᴀᴛ</a> ғᴏʀ ᴋɴᴏᴡɪɴɢ ᴛʜᴇ ʀᴇᴀsᴏɴ.",
-                    disable_web_page_preview=True,
-                )
+            if message.from_user:
+                if message.from_user.id and message.from_user.id not in SUDOERS:
+                    return await message.reply_text(
+                        text=f"{app.mention} ɪs ᴜɴᴅᴇʀ ᴍᴀɪɴᴛᴇɴᴀɴᴄᴇ, ᴠɪsɪᴛ <a href={SUPPORT_CHAT}>sᴜᴘᴘᴏʀᴛ ᴄʜᴀᴛ</a> ғᴏʀ ᴋɴᴏᴡɪɴɢ ᴛʜᴇ ʀᴇᴀsᴏɴ.",
+                        disable_web_page_preview=True,
+                    )
 
         try:
             await message.delete()
@@ -123,7 +125,7 @@ def AdminActual(mystic):
             _ = get_string(language)
         except:
             _ = get_string("en")
-        if message.from_user.id not in SUDOERS:
+        if message.from_user.id and message.from_user.id not in SUDOERS:
             try:
                 member = (
                     await app.get_chat_member(message.chat.id, message.from_user.id)
