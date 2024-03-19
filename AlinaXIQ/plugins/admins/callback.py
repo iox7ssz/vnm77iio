@@ -33,7 +33,17 @@ from AlinaXIQ.utils.inline import close_markup, stream_markup, stream_markup_tim
 from AlinaXIQ.utils.inline.play import panel_markup_1, panel_markup_2, panel_markup_3
 from AlinaXIQ.utils.stream.autoclear import auto_clean
 from AlinaXIQ.utils.thumbnails import get_thumb
-from config import BANNED_USERS, SOUNCLOUD_IMG_URL, STREAM_IMG_URL, TELEGRAM_AUDIO_URL, TELEGRAM_VIDEO_URL, adminlist, confirmer, votemode
+from config import ( 
+    BANNED_USERS,
+    SUPPORT_CHAT,
+    SOUNCLOUD_IMG_URL,
+    STREAM_IMG_URL,
+    TELEGRAM_AUDIO_URL,
+    TELEGRAM_VIDEO_URL,
+    adminlist,
+    confirmer,
+    votemode,
+)
 from strings import get_string
 from config import lyrical
 
@@ -482,7 +492,7 @@ async def del_back_playlist(client, CallbackQuery, _):
                     if str(streamtype) == "audio"
                     else TELEGRAM_VIDEO_URL,
                     caption=_["stream_1"].format(
-                        config.SUPPORT_CHAT, title[:23], duration, user
+                        SUPPORT_CHAT, title[:23], duration, user
                     ),
                     reply_markup=InlineKeyboardMarkup(button),
                 )
