@@ -137,7 +137,7 @@ async def auto_state(_, message):
                 await message.reply_text("**بەخێرهاتن پێشتر چالاککراوە**")
             else:
                 await wlcm.rm_wlcm(chat_id)
-                await message.reply_text(f"**بەخێرهاتن لەکارخرا لە {message.chat.title}**")
+                await message.reply_text(f"**بەخێرهاتن چالاککرا لە {message.chat.title}**")
         else:
             await message.reply_text(usage)
     else:
@@ -146,7 +146,7 @@ async def auto_state(_, message):
 
 
 @app.on_chat_member_updated(filters.group, group=-3)
-async def greet_new_member(_, message, member: ChatMemberUpdated):
+async def greet_new_member(_, member: ChatMemberUpdated):
     chat_id = member.chat.id
     count = await app.get_chat_members_count(chat_id)
     A = await wlcm.find_one(chat_id)
@@ -173,8 +173,19 @@ async def greet_new_member(_, message, member: ChatMemberUpdated):
             welcomeimg = welcomepic(
                 pic, user.first_name, member.chat.title, user.id, user.username
             )
-            chat_name = message.chat.title
-            welcome_text = f"""**◗⋮◖ بەخێربێی ئەزیزم {user.mention}\n بۆ گرووپی {chat_name}**"""
-            temp.MELCOW[f"welcome-{member.chat.id}"] = await app.send_message(member.chat.id, text=welcome_text, reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(f"نوێکارییەکانی ئەلینا 🍻", url=f"https://t.me/MGIMT")]]))
+            button_text = "๏ زیادم بکە کەناڵت ๏"
+            add_button_text = "نوێکارییەکانی ئەلینا 🍻"
+            deep_link = f"https://t.me/{app.username}?startchannel=true"
+            add_link = f"https://t.me/MGIMT"
+            temp.MELCOW[f"welcome-{member.chat.id}"] = await app.send_photo(
+                member.chat.id,
+                photo=welcomeimg,
+                caption=f"""**◗⋮◖ بەخێربێی ئەزیزم {user.mention}\n بۆ گرووپ 💎.**""",
+                reply_markup=InlineKeyboardMarkup([
+                    [InlineKeyboardButton(button_text, url=deep_link)],
+                    [InlineKeyboardButton(text=add_button_text, url=add_link)],
+                ])
+            )
+            await asyncio.sleep(120) 
         except Exception as e:
             LOGGER.error(e)
