@@ -205,32 +205,6 @@ async def huhh(client: Client, message: Message):
 
 
 
-@app.on_message(
-   command(["قورئان"])
-   
-    
-)
-async def huhh(client: Client, message: Message):
-    await message.reply_photo(
-        photo=f"https://telegra.ph/file/78cefd067cff33d79edb7.jpg",
-        caption=f"""**[⧉• 𝙎𝙊𝙐𝙍𝘾𝞝 𝘼𝙇𝙄𝙉𝘼 - پەخشی قورئان🧑🏻‍💻🖤](t.me/MGIMT)**\n\n**بەخێربێی ئەزیزم {message.from_user.mention} بۆ بەشی پەخشکردنی قورئانی پیرۆز تایبەت بە سەرچاوەی زیرەك**\n** بۆ پەخشکردنی بنووسە : سوڕەتی یان سوڕەت + ناوی سوڕەت ♥⚡**""",
-        reply_markup=InlineKeyboardMarkup(
-            [
-                [
-                    InlineKeyboardButton(
-                        "﮼محمد˹َّّ", url=f"https://t.me/IQ7amo"), 
-                 ],[
-                
-                    InlineKeyboardButton(
-                        "⧉• 𝙎𝙊𝙐𝙍𝘾𝞝 𝘼𝙇𝙄𝙉𝘼", url=f"https://t.me/MGIMT"),
-                 ],
-
-            ]
-
-        ),
-
-    )
-
     
 @app.on_message(command(["سەرۆکی گرووپ","خاوەنی گرووپ","owner"]) & filters.group)
 async def gak_owne(client: Client, message: Message):
