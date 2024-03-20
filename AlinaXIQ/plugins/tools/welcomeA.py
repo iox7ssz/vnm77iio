@@ -180,7 +180,7 @@ async def greet_new_member(_, member: ChatMemberUpdated):
             temp.MELCOW[f"welcome-{member.chat.id}"] = await app.send_photo(
                 member.chat.id,
                 photo=welcomeimg,
-                caption=f"""**◗⋮◖ بەخێربێی ئەزیزم {user.mention}\n بۆ گرووپ 💎.**""",
+                caption=f"""**◗⋮◖ بەخێربێی ئەزیزم {user.mention}\n◗⋮◖ بۆ گرووپ 💎.**""",
                 reply_markup=InlineKeyboardMarkup([
                     [InlineKeyboardButton(button_text, url=deep_link)],
                     [InlineKeyboardButton(text=add_button_text, url=add_link)],
