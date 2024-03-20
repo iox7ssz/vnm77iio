@@ -186,12 +186,7 @@ async def greet_new_member(_, member: ChatMemberUpdated):
                     [InlineKeyboardButton(text=add_button_text, url=add_link)],
                 ])
             )
-            # Schedule a task to delete the message after 30 seconds
-            async def delete_message():
-                await asyncio.sleep(120)
-                await message.delete()
-
-            # Run the task
-            asyncio.create_task(delete_message())
+            await asyncio.sleep(120)
+            await temp.MELCOW[f"welcome-{member.chat.id}"].delete()
         except Exception as e:
             LOGGER.error(e)
