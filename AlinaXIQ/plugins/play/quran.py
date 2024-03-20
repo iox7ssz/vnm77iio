@@ -21,8 +21,9 @@ async def quran(c,msg):
         list.append(ikb(name, callback_data = f"play-{i-1}"))
     keyboard.append(list)
     keyboard.append([ikb("• دواتر •", callback_data = "next-1")])
-    photo=f"https://telegra.ph/file/2ac2f9f989a00d46936e3.jpg"
-    await msg.reply_photo(photo=photo, caption=f"**◗⋮◖ [⧉• 𝙎𝙊𝙐𝙍𝘾𝞝 𝘼𝙇𝙄𝙉𝘼 - پەخشی قورئان🧑🏻‍💻🖤](t.me/MGIMT)\n⋆┄─┄─┄─┄─┄─┄─┄─┄⋆\n◗⋮◖ بەخێربێی ئەزیزم بۆ بەشی پەخشکردنی قورئانی پیرۆز**", reply_markup = ikm(keyboard))
+    keyboard.append([ikb("نوێکارییەکانی ئەلینا", url=f"https://t.me/MGIMT")])
+    video=f"https://telegra.ph/file/39ee458993b40a8a9a9b9.mp4"
+    await msg.reply_video(video=video, caption=f"**◗⋮◖ [⧉• 𝙎𝙊𝙐𝙍𝘾𝞝 𝘼𝙇𝙄𝙉𝘼 - پەخشی قورئان](t.me/MGIMT)\n⋆┄─┄─┄─┄─┄─┄─┄─┄⋆\n◗⋮◖ بەخێربێی ئەزیزم {msg.from_user.mention}\n◗⋮◖ بۆ بەشی پەخشکردنی قورئانی پیرۆز**", reply_markup = ikm(keyboard))
 
 @app.on_callback_query(filters.regex("next") & ~BANNED_USERS)
 async def next_quran(c,cq):
