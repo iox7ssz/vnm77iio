@@ -7,7 +7,7 @@ import requests
 from AlinaXIQ.core.call import Alina
 
 
-@app.on_message(filters.command(["قورئان","قورئانی پیرۆز"],""))
+@app.on_message(filters.command(["قورئان","قورئانی پیرۆز","/quran"],""))
 async def quran(c,msg):
     quran = json.loads(open("AlinaXIQ/assets/quran.json").read())["s"]
     keyboard = []
