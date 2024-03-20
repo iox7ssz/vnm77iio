@@ -113,7 +113,7 @@ def welcomepic(pic, user, chatname, id, uname, brightness_factor=1.3):
     background.save(f"downloads/welcome#{id}.png")
     return f"downloads/welcome#{id}.png"
 
-@app.on_message(filters.command(["awelcome", "Awel"]) & ~filters.private)
+@app.on_message(filters.command(["welcome", "wel"]) & ~filters.private)
 async def auto_state(_, message):
     usage = "**بەکارهێنان:**\n⦿/wel [on|off]\n"
     if len(message.command) == 1:
@@ -145,23 +145,36 @@ async def auto_state(_, message):
 
 
 
-@app.on_chat_member_updated(filters.group, group=-2)
-async def greet_new_members(_, member: ChatMemberUpdated):
-    try:
-        
-        chat_id = member.chat.id
-        userbot = await get_assistant(chat_id)
-        count = await app.get_chat_members_count(chat_id)
-        A = await wlcm.find_one(chat_id)
-        if A:
-            return
+@app.on_chat_member_updated(filters.group, group=-3)
+async def greet_new_member(_, message, member: ChatMemberUpdated):
+    chat_id = member.chat.id
+    count = await app.get_chat_members_count(chat_id)
+    A = await wlcm.find_one(chat_id)
+    if A:
+        return
 
-        user = member.new_chat_member.user if member.new_chat_member else member.from_user
-        
-        # Add the modified condition here
-        if member.new_chat_member and not member.old_chat_member and member.new_chat_member.status != "kicked":
-            welcome_text = f"""**◗⋮◖ بەخێربێی ئەزیزم {user.mention} بۆ گرووپ 💎.**"""
-            await asyncio.sleep(120) 
-            await app.send_message(chat_id, text=welcome_text, reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(f"نوێکارییەکانی ئەلینا 🍻", url=f"https://t.me/MGIMT")]]))
-    except Exception as e:
-       LOGGER.error(e)
+    user = member.new_chat_member.user if member.new_chat_member else member.from_user
+    
+    # Add the modified condition here
+    if member.new_chat_member and not member.old_chat_member and member.new_chat_member.status != "kicked":
+    
+        try:
+            pic = await app.download_media(
+                user.photo.big_file_id, file_name=f"pp{user.id}.png"
+            )
+        except AttributeError:
+            pic = "AlinaXIQ/assets/upic.png"
+        if (temp.MELCOW).get(f"welcome-{member.chat.id}") is not None:
+            try:
+                await temp.MELCOW[f"welcome-{member.chat.id}"].delete()
+            except Exception as e:
+                LOGGER.error(e)
+        try:
+            welcomeimg = welcomepic(
+                pic, user.first_name, member.chat.title, user.id, user.username
+            )
+            chat_name = message.chat.title
+            welcome_text = f"""**◗⋮◖ بەخێربێی ئەزیزم {user.mention}\n بۆ گرووپی {chat_name}**"""
+            temp.MELCOW[f"welcome-{member.chat.id}"] = await app.send_message(member.chat.id, text=welcome_text, reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(f"نوێکارییەکانی ئەلینا 🍻", url=f"https://t.me/MGIMT")]]))
+        except Exception as e:
+            LOGGER.error(e)
