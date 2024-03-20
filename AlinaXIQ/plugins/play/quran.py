@@ -21,7 +21,7 @@ async def quran(c,msg):
         list.append(ikb(name, callback_data = f"play-{i-1}"))
     keyboard.append(list)
     keyboard.append([ikb("• دواتر •", callback_data = "next-1")])
-    photo=f"https://telegra.ph/file/78cefd067cff33d79edb7.jpg"
+    photo=f"https://telegra.ph/file/2ac2f9f989a00d46936e3.jpg"
     await msg.reply_photo(photo=photo, caption=f"**◗⋮◖ [⧉• 𝙎𝙊𝙐𝙍𝘾𝞝 𝘼𝙇𝙄𝙉𝘼 - پەخشی قورئان🧑🏻‍💻🖤](t.me/MGIMT)\n⋆┄─┄─┄─┄─┄─┄─┄─┄⋆\n◗⋮◖ بەخێربێی ئەزیزم بۆ بەشی پەخشکردنی قورئانی پیرۆز**", reply_markup = ikm(keyboard))
 
 @app.on_callback_query(filters.regex("next") & ~BANNED_USERS)
@@ -85,14 +85,14 @@ async def show_quran(c,cq):
     else:
         keyboard.append([ikb("• پێشووتر •", callback_data = f"play-{number-1}"), ikb("• دواتر •", callback_data = f"play-{number+1}")])
     name_suarh = quran[number]["surah"]
-    await cq.edit_message_text(f"- تم اختيار سورة {name_suarh} .\n- قم باختيار الشيخ", reply_markup = ikm(keyboard))
+    await cq.edit_message_text(f"**◗⋮◖ سوڕەتی {name_suarh} هەڵبژێردرا\n◗⋮◖ ئێستا قورئان بێژ هەڵبژێرە**", reply_markup = ikm(keyboard))
 
 @app.on_callback_query(filters.regex("runq") & ~BANNED_USERS)
 async def show_quran(c,cq):
     data = (cq.data.strip()).split("-")
     number = int(data[1])
     i = int(data[2])
-    quran = json.loads(open("AlinaXIQ/assets/quran.json").read())["s"] # ملف القران الي بستخدمه بتاع @devzaid 
+    quran = json.loads(open("AlinaXIQ/assets/quran.json").read())["s"] 
     name = quran[number]["surah"]
     per_name = quran[number]["sounds"][i]["name"]
     file = requests.get(quran[number]["sounds"][i]["url"]).content
@@ -108,7 +108,7 @@ async def show_quran(c,cq):
     quran = json.loads(open("AlinaXIQ/assets/quran.json").read())["s"]
     try:
         await Alina.join_call(cq.message.chat.id, cq.message.chat.id, quran[number]["sounds"][i]["url"], video=None)
-        await cq.edit_message_reply_markup(ikm([[ikb(". ايقاف مؤقت .", callback_data = f"ADMIN Pause|{cq.message.chat.id}"),ikb(". استئناف .", callback_data=f"ADMIN Resume|{cq.message.chat.id}")],[ikb(". ايقاف .", callback_data = f"ADMIN Stop|{cq.message.chat.id}")]]))
+        await cq.edit_message_reply_markup(ikm([[ikb("• وەستانی کاتی •", callback_data = f"ADMIN Pause|{cq.message.chat.id}"),ikb("• دەستپێکردنەوە •", callback_data=f"ADMIN Resume|{cq.message.chat.id}")],[ikb("• وەستان •", callback_data = f"ADMIN Stop|{cq.message.chat.id}")]]))
     except:
         await Alina.skip_stream(cq.message.chat.id, quran[number]["sounds"][i]["url"])
-        await cq.edit_message_reply_markup(ikm([[ikb(". ايقاف مؤقت .", callback_data = f"ADMIN Pause|{cq.message.chat.id}"),ikb(". استئناف .", callback_data=f"ADMIN Resume|{cq.message.chat.id}")],[ikb(". ايقاف .", callback_data = f"ADMIN Stop|{cq.message.chat.id}")]]))
+        await cq.edit_message_reply_markup(ikm([[ikb("• وەستانی کاتی •", callback_data = f"ADMIN Pause|{cq.message.chat.id}"),ikb("• دەستپێکردنەوە •", callback_data=f"ADMIN Resume|{cq.message.chat.id}")],[ikb("• وەستان •", callback_data = f"ADMIN Stop|{cq.message.chat.id}")]]))
