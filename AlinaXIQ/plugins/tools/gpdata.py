@@ -5,7 +5,7 @@ from AlinaXIQ import app
 from config import OWNER_ID
 from AlinaXIQ.misc import SUDOERS
 from pyrogram.types import Message
-from AlinaXIQ.utils.database import add_served_chat, delete_served_chat
+from AlinaXIQ.utils.database import add_served_chat
 from AlinaXIQ.utils.alina_ban import admin_filter, sudo_filter
 from pyrogram.types import Message, CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
 from strings.filters import command
@@ -189,16 +189,27 @@ async def setg_discription(_, message):
 
 # --------------------------------------------------------------------------------- #
 
-@app.on_message(command(["/lg","/leave","لێفتکە"]) & SUDOERS)
+@app.on_message(command(["/leave","لێفتکە"]) & SUDOERS)
 async def bot_leave(_, message):
     chat_id = message.chat.id
     buttons = [[InlineKeyboardButton('گرووپی بۆت', url=f'https://t.me/IQSUPP')]]
     await message.reply_text('<b>ببورە بەڕیزم\nخاوەنەکەم پێی وتم کە دەربچم لەم گرووپە بۆ هەر کێشەیەك سەردانی گرووپی بۆت بکە</b>', reply_markup=InlineKeyboardMarkup(buttons))
-    await delete_servred_chat(chat_id)
     await app.leave_chat(chat_id=chat_id, delete=True)
 
 # --------------------------------------------------------------------------------- #
 
+@app.on_message(command(['/lg', 'دەرکردنی بۆت']) & SUDOERS)
+async def leave_a_chat(client, message):
+    if len(message.command) == 1: return await message.reply('**ئایدی یان یوزەر گرووپم پێبدە**')
+    chat = message.command[1]
+    try: chat = int(chat)
+    except: chat = chat
+    try:
+        buttons = [[InlineKeyboardButton('گرووپی بۆت', url=f'https://t.me/IQSUPP')]]
+        await client.send_message(chat_id=chat, text='<b>ببورە بەڕیزم\nخاوەنەکەم پێی وتم کە دەربچم لەم گرووپە بۆ هەر کێشەیەك سەردانی گرووپی بۆت بکە</b>', reply_markup=InlineKeyboardMarkup(buttons))
+        await client.leave_chat(chat)
+    except Exception as e:
+        await message.reply(f'**هەڵە: {e} **')
 # --------------------------------------------------------------------------------- #
 
 # --------------------------------------------------------------------------------- #
