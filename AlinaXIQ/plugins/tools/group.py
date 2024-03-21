@@ -1,6 +1,7 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message
 from AlinaXIQ import app
+from AlinaXIQ.misc import SUDOERS
 from config import OWNER_ID
 from pyrogram.types import VideoChatEnded, Message
 from AlinaXIQ.core.call import Alina
@@ -73,10 +74,10 @@ def calculate_math(client, message):
     message.reply(response)
 
 ###
-@app.on_message(filters.command("leavegroup")& filters.user(OWNER_ID))
+@app.on_message(filters.command("leavegroup")& SUDOERS))
 async def bot_leave(_, message):
     chat_id = message.chat.id
-    text = f"sᴜᴄᴄᴇssғᴜʟʟʏ   ʟᴇғᴛ  !!."
+    text = f"**◗⋮◖ بە سەرکەوتوویی لێفت دەکەم گەشەپێدەر**"
     await message.reply_text(text)
     await app.leave_chat(chat_id=chat_id, delete=True)
 
