@@ -28,7 +28,7 @@ pytz
 ntgcalls==1.1.0
 future==0.18.3
 search_engine_parser
-py-tgcalls==1.2.2
+py-tgcalls==0.9.7
 pykeyboard
 pyshorteners
 pyrogram
