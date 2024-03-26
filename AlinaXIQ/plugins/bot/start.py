@@ -23,7 +23,7 @@ from AlinaXIQ.utils.database import (
 )
 from AlinaXIQ.utils.decorators.language import LanguageStart
 from AlinaXIQ.utils.formatters import get_readable_time
-from AlinaXIQ.utils.inline import first_page, private_panel, start_panel
+from AlinaXIQ.utils.inline import help_pannel, private_panel, start_panel
 from config import BANNED_USERS
 from strings import get_string
 from AlinaXIQ.utils.database import get_assistant
@@ -96,7 +96,7 @@ async def start_pm(client, message: Message, _):
     if len(message.text.split()) > 1:
         name = message.text.split(None, 1)[1]
         if name[0:4] == "help":
-            keyboard = first_page(_)
+            keyboard = help_pannel(_)
             return await message.reply_photo(
                 random.choice(IQ_PICS),
                 caption=_["help_1"].format(config.SUPPORT_CHAT),
